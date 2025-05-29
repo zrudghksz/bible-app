@@ -41,86 +41,89 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ✅ UI 고도화 스타일 패키지 적용 (들여쓰기 없이, 한 번에!)
+# ✅ UI 고도화 스타일 패키지 적용
 st.markdown("""
-<style>
-/* 모든 입력/선택 박스 공통 스타일 */
-.stTextArea textarea, .stTextInput input, .stSelectbox div[data-baseweb="select"], .stRadio, .stToggle {
-    background: rgba(255,255,255,0.93) !important;
-    border-radius: 10px !important;
-    box-shadow: 0 4px 16px rgba(40,40,40,0.10);
-    font-size: 17px;
-    color: #222 !important;
-    font-weight: 500;
-}
-/* 드롭다운 select 박스 배경 */
-[data-baseweb="select"] > div {
-    background: rgba(255,255,255,0.95) !important;
-}
-/* 라디오/토글 컨테이너 가독성 보정 */
-.stRadio, .stToggle {
-    background: rgba(255,255,255,0.88) !important;
-    border-radius: 10px !important;
-    margin-bottom: 10px;
-    padding: 4px 12px 2px 12px;
-}
-.stApp {
-    background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-.stButton > button {
-    background-color: #4a7ebb;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 20px;
-    font-weight: bold;
-    font-size: 16px;
-}
-.stButton > button:hover {
-    background-color: #3a6ea5;
-}
-.result-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.15);
-    border-radius: 10px;
-    overflow: hidden;
-}
-.result-table th {
-    background-color: #4a7ebb;
-    color: white;
-    padding: 12px;
-    font-size: 16px;
-}
-.result-table td {
-    padding: 12px;
-    text-align: center;
-    font-size: 15px;
-    background-color: #f9f9f9;
-}
-.result-tag {
-   font-weight: bold;
-    margin-left: 8px;
-    color: green;
-}
-.result-tag.wrong {
-    color: red;
-}
-.verse-highlight {
-    background-color: rgba(255, 255, 255, 0.85);
-    color: #222;
-    padding: 12px 18px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 18px;
-    margin-top: 10px;
-    font-weight: bold;
-}
-</style>
+    <style>
+    /* 모든 입력/선택 박스 공통 스타일 */
+    .stTextArea textarea, .stTextInput input, .stSelectbox div[data-baseweb="select"], .stRadio, .stToggle {
+        background: rgba(255,255,255,0.93) !important;   /* 더 하얗고 불투명하게 */
+        border-radius: 10px !important;
+        box-shadow: 0 4px 16px rgba(40,40,40,0.10);
+        font-size: 17px;
+        color: #222 !important;
+        font-weight: 500;
+    }
+    /* 드롭다운 select 박스 배경 */
+    [data-baseweb="select"] > div {
+        background: rgba(255,255,255,0.95) !important;
+    }
+    /* 라디오/토글 컨테이너 가독성 보정 */
+    .stRadio, .stToggle {
+        background: rgba(255,255,255,0.88) !important;
+        border-radius: 10px !important;
+        margin-bottom: 10px;
+        padding: 4px 12px 2px 12px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+    <style>
+    .stApp {
+        background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    .stButton > button {
+        background-color: #4a7ebb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 20px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .stButton > button:hover {
+        background-color: #3a6ea5;
+    }
+    .result-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .result-table th {
+        background-color: #4a7ebb;
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+    }
+    .result-table td {
+        padding: 12px;
+        text-align: center;
+        font-size: 15px;
+        background-color: #f9f9f9;
+    }
+    .result-tag {
+       font-weight: bold;
+        margin-left: 8px;
+        color: green;
+    }
+    .result-tag.wrong {
+        color: red;
+    }
+    .verse-highlight {
+        background-color: rgba(255, 255, 255, 0.85);
+        color: #222;
+        padding: 12px 18px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 18px;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    </style>
 """, unsafe_allow_html=True)
 
 # --- 앱 제목  ---
