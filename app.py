@@ -20,7 +20,6 @@ with open("verses.txt", "r", encoding="utf-8") as f:
                 lines.append({"절": int(verse_num), "본문": verse_text})
 
 df = pd.DataFrame(lines)
-df.to_excel("암송_원문.xlsx", index=False)
 
 with open("verses.txt", "r", encoding="utf-8") as f:
     verse_texts = [line.strip().split(" ", 1)[1] for line in f if line.strip() and len(line.strip().split(" ", 1)) > 1]
