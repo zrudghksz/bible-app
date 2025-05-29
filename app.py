@@ -1,14 +1,7 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import os
 import difflib
 import pandas as pd
-import whisper
-import tempfile
-from st_audiorec import st_audiorec
-
-# --- Whisper 모델은 처음에 한 번만 로딩해서 속도 최적화 ---
-model = whisper.load_model("base")
 
 # --- 파일 경로 설정 ---
 audio_dir = "audio"
@@ -121,7 +114,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ✅ 기존 모드 선택 로직 복원
-mode = st.radio("**🎧 모드를 선택하세요**", ["부분 듣기", "전체 듣기", "부분 암송 테스트", "전체 암송 테스트", "음성 업로드"], index=0)
+mode = st.radio("**🎧 모드를 선택하세요**", ["부분 듣기", "전체 듣기", "부분 암송 테스트", "전체 암송 테스트"], index=0)
 
 # ✅ 분기 처리 ---
 if mode == "부분 듣기":
@@ -254,59 +247,3 @@ elif mode == "전체 암송 테스트":
                 f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                 unsafe_allow_html=True
             )
-
-
-
-elif mode == "음성 업로드":
-    st.subheader("🎙️ 녹음 파일 업로드 또는 직접 녹음 → 오타 평가")
-
-    st.markdown("""
-    <div style="margin-top: 25px; padding: 15px 20px; background-color: #f9f9fc;
-    border-left: 5px solid #4a7ebb; font-size: 15px; color: #333; line-height: 1.5;
-    border-radius: 4px;">
-    📢 <strong>주의사항:</strong><br>
-    암송 중 <strong>본문 외의 말</strong>이 들어가면 <strong>오답으로 처리</strong>될 수 있습니다.<br>
-    <strong>본문만 정확히 암송</strong>해 주세요.
-    </div>
-    """, unsafe_allow_html=True)
-
-    uploaded_file = st.file_uploader("📂 음성 파일 업로드 (wav 또는 mp3)", type=["wav", "mp3"])
-    wav_audio_data = st_audiorec()
-
-    temp_audio_path = None
-    if wav_audio_data is not None:
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmpfile:
-            tmpfile.write(wav_audio_data)
-            temp_audio_path = tmpfile.name
-            st.success("✅ 직접 녹음 완료! 음성 인식 중입니다...")
-
-    elif uploaded_file is not None:
-        with open("temp_audio.wav", "wb") as f:
-            f.write(uploaded_file.read())
-        temp_audio_path = "temp_audio.wav"
-        st.info("✅ 업로드된 파일 인식 중입니다...")
-
-    if temp_audio_path:
-        result = model.transcribe(temp_audio_path, language="ko")
-        user_text = result["text"].strip()
-
-        st.success("📝 인식된 텍스트:")
-        st.markdown(f"```{user_text}```")
-
-        correct_text = " ".join(verse_texts)
-
-        def get_wrong_words(correct, user):
-            correct_words = correct.split()
-            user_words = user.split()
-            sm = difflib.SequenceMatcher(None, correct_words, user_words)
-            wrong = []
-            for tag, i1, i2, j1, j2 in sm.get_opcodes():
-                if tag in ["replace", "delete"]:
-                    wrong.extend(correct_words[i1:i2])
-            return wrong
-
-        mistakes = get_wrong_words(correct_text, user_text)
-
-        st.markdown("### 📊 결과 평가")
-        st.markdown(f"- 정답: `{correct_text}`")
-        st.markdown(f"- 오타 감지: `{'없음' if not mistakes else ', '.join(mistakes)}`")
