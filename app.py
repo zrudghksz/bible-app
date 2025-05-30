@@ -114,6 +114,38 @@ body, .stApp, .stMarkdown, .stRadio label, .stToggle label, .stSelectbox label, 
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* 라디오, 토글, 체크박스, 셀렉트박스 등 라벨 텍스트 */
+.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label, .st-b8, .css-1c7y2kd {
+    color: #22336b !important;      /* 진한 남색 */
+    font-weight: 700 !important;    /* 더 굵게 */
+    font-size: 1.09em !important;   /* 약간 크게 */
+    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;  /* 흰색 아웃라인 */
+}
+
+/* 전체 Select, Checkbox, Toggle, 라디오 배경도 약간 더 흰색 */
+.stRadio, .stToggle, .stCheckbox, .stSelectbox {
+    background: rgba(255,255,255,0.90) !important;
+    border-radius: 10px !important;
+    padding: 6px 12px 5px 12px;
+}
+
+/* 드롭다운(Selectbox) 옵션 자체 폰트도 */
+[data-baseweb="select"] > div {
+    color: #22336b !important;
+    font-weight: 700 !important;
+}
+
+/* 기타 입력 타이틀(라벨)도 */
+.stTextInput > label, .stTextArea > label {
+    color: #22336b !important;
+    font-weight: 700 !important;
+    font-size: 1.06em !important;
+    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # --- 앱 제목  ---
