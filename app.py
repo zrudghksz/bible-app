@@ -185,7 +185,7 @@ elif mode == "부분 암송 테스트":
                 display: block;
                 background: rgba(255,255,255,0.95);
                 color: #111;
-                font-size: 1.2em;
+                font-size: 1.15em;
                 font-weight: 400;
                 font-family: 'Segoe UI', sans-serif;
                 border-radius: 7px;
