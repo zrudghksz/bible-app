@@ -258,7 +258,7 @@ elif mode == "부분 암송 테스트":
 elif mode == "전체 암송 테스트":
     st.subheader("🧠 전체 암송 테스트 (29절)")
 
-    # ✅ 정답/결과 보기 토글
+    # ✅ 토글
     col1, col2 = st.columns([1, 1])
     with col1:
         show_answer = st.toggle("정답 보기", value=False)
@@ -268,7 +268,7 @@ elif mode == "전체 암송 테스트":
     # ✅ CSS 스타일 정의
     st.markdown("""
         <style>
-        /* 🔹 placeholder 텍스트 스타일 */
+        /* 입력 전 안내 문구 (placeholder) */
         textarea::placeholder {
             color: rgba(0,0,0,0.4) !important;
             font-size: 1.05em !important;
@@ -276,7 +276,7 @@ elif mode == "전체 암송 테스트":
             font-family: 'Segoe UI', sans-serif !important;
         }
 
-        /* 🔹 정답 보기 시: 비활성화 텍스트 스타일 (선명 + 진하게 + 줄간격) */
+        /* 정답 보기 시 비활성화 텍스트 스타일 */
         .stTextArea textarea:disabled {
             color: #111 !important;
             font-size: 1.15em !important;
@@ -285,7 +285,7 @@ elif mode == "전체 암송 테스트":
             font-family: 'Segoe UI', sans-serif !important;
         }
 
-        /* 🔹 결과 표시 태그 */
+        /* 결과 태그 */
         .result-tag {
             font-weight: bold;
             margin-left: 6px;
@@ -298,12 +298,13 @@ elif mode == "전체 암송 테스트":
         </style>
     """, unsafe_allow_html=True)
 
-    # ✅ 본문 반복 출력
+    # ✅ 반복 출력
     for i in range(len(verse_texts)):
         correct_text = verse_texts[i]
         key = f"full_{i}"
+        typed_input = st.session_state.get(key, "")
 
-        # 절 번호 라벨 박스
+        # 절 번호 라벨
         st.markdown(
             f"""
             <span style="
@@ -321,22 +322,29 @@ elif mode == "전체 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # ✅ 입력 텍스트 (정답 보기 시 비활성화 상태)
-        input_text = st.text_area(
-            label="",
-            value=st.session_state.get(key, ""),
-            key=key,
-            placeholder="직접 입력해 보세요." if not show_answer else "",
-            label_visibility="collapsed",
-            disabled=show_answer
-        )
+        # 입력 박스 or 정답 보기
+        if show_answer:
+            st.text_area(
+                label="",
+                value=correct_text,
+                key=f"answer_{i}",
+                label_visibility="collapsed",
+                disabled=True
+            )
+        else:
+            typed_input = st.text_area(
+                label="",
+                value=typed_input,
+                key=key,
+                placeholder="직접 입력해 보세요.",
+                label_visibility="collapsed"
+            )
 
-        # ✅ 결과 보기 평가
+        # 결과 보기 평가
         if show_result:
-            if input_text.strip() == "":
-                is_correct = False
-            else:
-                is_correct = compare_texts(correct_text, input_text.strip())
+            compare_text = correct_text
+            input_text = typed_input if not show_answer else correct_text
+            is_correct = compare_texts(compare_text, input_text.strip()) if input_text.strip() else False
 
             st.markdown(
                 f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
