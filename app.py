@@ -186,65 +186,62 @@ elif mode == "부분 암송 테스트":
 
     user_inputs = []
 
-    for i in range(start_num, start_num + 5):
-        verse_index = i - 1
-        correct_text = verse_texts[verse_index]
-        key = f"input_{i}"
+for i in range(start_num, start_num + 5):
+    verse_index = i - 1
+    correct_text = verse_texts[verse_index]
+    key = f"input_{i}"
 
-        # --- 절 번호 라벨 (박스형) ---
-        st.markdown(
-            f"""
-            <span style="
-                display: inline-block;
-                background: rgba(255,255,255,0.94);
-                color: #14428c;
-                font-size: 1.15em;
-                font-weight: 800;
-                padding: 4px 13px 4px 10px;
-                border-radius: 7px;
-                margin-bottom: 6px;
-                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-            ">{i}절</span>
-            """,
-            unsafe_allow_html=True
+    # --- 절 번호 라벨 (박스형) ---
+    st.markdown(
+        f"""
+        <span style="
+            display: inline-block;
+            background: rgba(255,255,255,0.94);
+            color: #14428c;
+            font-size: 1.15em;
+            font-weight: 800;
+            padding: 4px 13px 4px 10px;
+            border-radius: 7px;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+        ">{i}절</span>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # 입력창
+    if show_answer:
+        input_text = st.text_area(
+            "",
+            value=correct_text,
+            key=f"{key}_answer",
+            disabled=True,
+            label_visibility="collapsed"
+        )
+    else:
+        input_text = st.text_area(
+            "",
+            value=st.session_state.get(key, ""),
+            key=key,
+            placeholder="직접 입력해 보세요.",
+            label_visibility="collapsed"
         )
 
-        # --- 입력창: 정답 보기면 비활성화, 아니면 유저 입력값 ---
-        if show_answer:
-            # 정답만 보여주고, 입력 비활성화(키는 따로, 입력 보존)
-            input_text = st.text_area(
-                "",
-                value=correct_text,
-                key=f"{key}_answer",
-                disabled=True,
-                label_visibility="collapsed"
+    # 결과 표시
+    if check_result and not show_answer:
+        if input_text.strip() == "":
+            st.markdown(
+                f"<div style='color:red; font-weight:bold; font-size:16px;'>❌ 오답 (빈칸)</div>",
+                unsafe_allow_html=True
             )
         else:
-            # 사용자의 기존 입력값 복구, 직접 저장 X (Streamlit이 자동 관리)
-            input_text = st.text_area(
-                "",
-                value=st.session_state.get(key, ""),
-                key=key,
-                placeholder="직접 입력해 보세요.",
-                label_visibility="collapsed"
+            is_correct = compare_texts(correct_text, input_text)
+            st.markdown(
+                f"<div style='color:{'green' if is_correct else 'red'}; font-weight:bold; font-size:16px;'>"
+                f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                unsafe_allow_html=True
             )
 
-        user_inputs.append(input_text)
-
-        # --- 결과 표시는 "결과 보기"가 켜져 있고, "정답 보기"가 꺼진 경우에만 표시 ---
-        if check_result and not show_answer:
-            if input_text.strip() == "":
-                st.markdown(
-                    f"<div style='color:red; font-weight:bold; font-size:16px;'>❌ 오답</div>",
-                    unsafe_allow_html=True
-                )
-            else:
-                is_correct = compare_texts(correct_text, input_text)
-                st.markdown(
-                    f"<div style='color:{'green' if is_correct else 'red'}; font-weight:bold; font-size:16px;'>"
-                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                    unsafe_allow_html=True
-                )
 
 
 
