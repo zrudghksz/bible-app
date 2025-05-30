@@ -41,26 +41,28 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* ================== 타이틀(h1)만 진파랑 ================== */
+/* ================== 모든 타이틀/라벨/질문 진파랑 ================== */
+h1, h2, h3, h4, .st-b8, .css-1c7y2kd, 
+.stRadio label, .stSelectbox label, .stTextInput > label, .stTextArea > label, label, 
+.stMarkdown, .stSubheader, .stHeader, .stRadio > legend {
+    color: #193e73 !important;
+    font-weight: 900 !important;
+}
+
+/* ================== 타이틀(h1) 디자인 ================== */
 h1 {
-    color: #193e73 !important;   /* ← 여기만 수정 */
     background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
     border-radius: 10px !important;
     padding: 13px 18px !important;
-    font-weight: 900 !important;
     font-size: 1.35em !important;
     box-shadow: 0 2px 10px rgba(60,70,90,0.10);
     margin-bottom: 18px !important;
     text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
 }
-
-/* ========== 섹션 타이틀(하위 h2, h3 등)은 진파랑 ========== */
 h2, h3, .section-title {
-    color: #193e73 !important;
     background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
     border-radius: 10px !important;
     padding: 13px 18px !important;
-    font-weight: 900 !important;
     font-size: 1.18em !important;
     box-shadow: 0 2px 10px rgba(60,70,90,0.10);
     margin-bottom: 15px !important;
@@ -70,7 +72,6 @@ h2, h3, .section-title {
 /* ========== (하단) 라벨: 정답/결과/절번호 등 ========== */
 .stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label,
 .stTextInput > label, .stTextArea > label, .st-b8, .css-1c7y2kd {
-    color: #fff !important;
     font-weight: 800 !important;
     font-size: 1.10em !important;
     background: none !important;
