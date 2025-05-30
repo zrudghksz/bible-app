@@ -160,7 +160,7 @@ elif mode == "전체 듣기":
 
 
 elif mode == "부분 암송 테스트":
-    st.subheader("🧠 부분 암송 테스트 (5절씩)")
+    st.subheader("🧠 부분 암송 테스트")
 
     st.markdown("📝 시작 절을 선택하세요.")
     start_label = st.selectbox(
@@ -256,7 +256,7 @@ elif mode == "부분 암송 테스트":
 
 
 elif mode == "전체 암송 테스트":
-    st.subheader("\U0001f9e0 전체 암송 테스트 (29절)")
+    st.subheader("\U0001f9e0 전체 암송 테스트")
     col1, col2 = st.columns([1, 1])
     with col1:
         show_answer = st.toggle("정답 보기", value=False)
