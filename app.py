@@ -352,7 +352,7 @@ elif mode == "전체 암송 테스트":
             if not user_input:
                 # 입력이 없으면 무조건 오답
                 st.markdown(
-                    f"<div class='result-tag wrong'>❌ 오답 (미입력)</div>",
+                    f"<div class='result-tag wrong'>❌ 오답</div>",
                     unsafe_allow_html=True
                 )
             elif not showing_answer:
