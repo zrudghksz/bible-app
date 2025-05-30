@@ -158,7 +158,7 @@ elif mode == "전체 듣기":
         st.error("full_audio.wav 파일을 audio 폴더 안에 넣어주세요.")
 
 elif mode == "부분 암송 테스트":
-    st.subheader("🧠 부분 암송 테스트 (5절)")
+    st.subheader("🧠 부분 암송 테스트 (5절씩)")
     start_label = st.selectbox("📝 시작 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
     start_num = int(start_label.replace("절", ""))
 
