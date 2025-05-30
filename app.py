@@ -259,7 +259,7 @@ elif mode == "전체 암송 테스트":
     st.subheader("\U0001f9e0 전체 암송 테스트")
     col1, col2 = st.columns([1, 1])
     with col1:
-        show_answer = st.toggle("정답 보기", value=False)
+        show_answer = st.toggle("전체 정답 보기", value=False)
     with col2:
         show_result = st.toggle("결과 보기", value=False)
 
@@ -312,15 +312,30 @@ elif mode == "전체 암송 테스트":
             unsafe_allow_html=True
         )
 
-        input_text = st.text_area(
-            "",
-            value=st.session_state[key],
-            key=key,
-            placeholder=correct_text if show_answer else "",
-            label_visibility="collapsed"
-        )
-        user_inputs.append(input_text)
+        # 절별 정답 보기 체크박스
+        show_individual_answer = st.checkbox(f"{i+1}절 정답 보기", key=f"show_ans_{i}")
 
+        # 입력창 생성
+        if show_answer or show_individual_answer:
+            input_text = st.text_area(
+                "",
+                value=st.session_state[key],
+                key=key,
+                placeholder=correct_text,
+                label_visibility="collapsed"
+            )
+        else:
+            input_text = st.text_area(
+                "",
+                value=st.session_state[key],
+                key=key,
+                placeholder="직접 암송해보세요.",
+                label_visibility="collapsed"
+            )
+
+        user_inputs.append(input_text)  # ✅ 반드시 포함
+
+        # 결과 평가 출력 (기존 그대로 유지)
         if show_result:
             is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
             st.markdown(
@@ -328,4 +343,20 @@ elif mode == "전체 암송 테스트":
                 f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                 unsafe_allow_html=True
             )
+        input_text = st.text_area(
+                    "",
+                    value=st.session_state[key],
+                    key=key,
+                    placeholder=correct_text if show_answer else "",
+                    label_visibility="collapsed"
+                )
+                user_inputs.append(input_text)
 
+                if show_result:
+                    is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
+                    st.markdown(
+                        f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
+                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                        unsafe_allow_html=True
+                    )
+        
