@@ -236,7 +236,7 @@ elif mode == "부분 암송 테스트":
             if check_result:
                 if input_text.strip() == "":
                     st.markdown(
-                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답'}</div>",
+                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답 (빈칸)</div>",
                         unsafe_allow_html=True
                     )
                 else:
