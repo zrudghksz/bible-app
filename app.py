@@ -255,7 +255,8 @@ elif mode == "부분 암송 테스트":
                         f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                         unsafe_allow_html=True
                     )
-                elif check_result and show_answer:
+      
+            elif check_result and show_answer:
                     # 정답 보기 상태일 때에도 입력값이 존재하면 결과 평가
                     typed = st.session_state.get(key, "").strip()
                     if typed != "":
