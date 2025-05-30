@@ -172,21 +172,41 @@ elif mode == "부분 암송 테스트":
     with col2:
         show_result = st.toggle("결과 보기", value=False, key="part_result")
 
-    # 절별 입력 저장 및 표시
+    st.markdown("""
+        <style>
+        textarea::placeholder {
+            color: black !important;
+            opacity: 1 !important;
+        }
+        .result-tag {
+            font-weight: bold;
+            margin-left: 6px;
+            color: green;
+            font-size: 15px;
+        }
+        .result-tag.wrong {
+            color: #d63e22;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    user_inputs = []
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"part_{i}"
+        if key not in st.session_state:
+            st.session_state[key] = ""
 
-        # 절 번호 라벨
+        # ---- 절 번호 상자 라벨 추가 ----
         st.markdown(
             f"""
             <span style="
                 display: inline-block;
-                background: rgba(255,255,255,0.96);
-                color: #193e73;
+                background: rgba(255,255,255,0.94);
+                color: #14428c;
                 font-size: 1.15em;
-                font-weight: 900;
+                font-weight: 800;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
                 margin-bottom: 6px;
@@ -196,34 +216,35 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 정답 보기면 정답만 박스에, 입력창 비활성화
         if show_answer:
-            st.markdown(
-                f"<div class='markdown-highlight' style='margin-bottom:10px; color:#193e73; font-weight:900; font-size:1.12em;'>{correct_text}</div>",
-                unsafe_allow_html=True
+            # 전체 암송과 동일하게 정답 보기
+            st.text_area(
+                "",
+                value=correct_text,
+                key=f"{key}_answer",
+                disabled=True,
+                label_visibility="collapsed"
             )
-            continue
-
-        # 입력창: 정답 보기가 아니면 입력값 유지
-        input_text = st.text_area(
-            "",
-            value=st.session_state.get(key, ""),
-            key=key,
-            placeholder="직접 입력해 보세요.",
-            label_visibility="collapsed"
-        )
-
-        # 결과 보기 ON이고, 정답 보기가 OFF일 때만 정오답 표시
-        if show_result and not show_answer:
-            is_correct = False
-            if input_text.strip() != "":
-                is_correct = compare_texts(correct_text, input_text.strip())
-            # 결과 표시: 정답/오답
-            st.markdown(
-                f"<div style='font-weight:bold; font-size:16px; margin-bottom:7px; color:{'green' if is_correct else '#d63e22'};'>"
-                f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                unsafe_allow_html=True
+        else:
+            input_text = st.text_area(
+                "",
+                value=st.session_state[key],
+                key=key,
+                placeholder="직접 입력해 보세요.",
+                label_visibility="collapsed"
             )
+            user_inputs.append(input_text)
+
+            if show_result:
+                is_correct = False
+                if input_text.strip():
+                    is_correct = compare_texts(correct_text, input_text.strip())
+                st.markdown(
+                    f"<div class='result-tag{' wrong' if not is_correct else ''}'>"
+                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                    unsafe_allow_html=True
+                )
+
 
 
 elif mode == "전체 암송 테스트":
