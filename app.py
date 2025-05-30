@@ -183,14 +183,14 @@ elif mode == "부분 암송 테스트":
         correct_text = verse_texts[verse_index]
         key = f"partial_{i}"
 
-        # 절 번호 라벨
+        # 절 번호 라벨 박스 (전체 테스트와 통일)
         st.markdown(
             f"""
             <span style="
                 display: inline-block;
                 background: rgba(255,255,255,0.94);
                 color: #14428c;
-                font-size: 1.5em;
+                font-size: 1.15em;
                 font-weight: 800;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
@@ -201,7 +201,6 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 정답 보기 켠 경우: 텍스트 출력
         if show_answer:
             st.markdown(
                 f"""
@@ -220,7 +219,6 @@ elif mode == "부분 암송 테스트":
                 unsafe_allow_html=True
             )
         else:
-            # 사용자 입력 받기
             input_text = st.text_area(
                 "",
                 value=st.session_state.get(key, ""),
@@ -229,7 +227,6 @@ elif mode == "부분 암송 테스트":
                 label_visibility="collapsed"
             )
 
-            # 결과 보기 켜짐
             if check_result:
                 if input_text.strip() == "":
                     st.markdown(
