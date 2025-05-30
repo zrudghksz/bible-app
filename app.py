@@ -162,7 +162,6 @@ elif mode == "전체 듣기":
 elif mode == "부분 암송 테스트":
     st.subheader("🧠 부분 암송 테스트 (5절씩)")
 
-    # 시작 절 선택 안내
     st.markdown("📝 시작 절을 선택하세요.")
     start_label = st.selectbox(
         label="", 
@@ -171,33 +170,36 @@ elif mode == "부분 암송 테스트":
     )
     start_num = int(start_label.replace("절", ""))
 
-    # 정답 / 결과 보기 토글
+    # 정답/결과 토글
     col1, col2 = st.columns(2)
     with col1:
         show_answer = st.toggle("정답 보기", value=False, key="partial_show_answer")
     with col2:
         check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
 
-    # 정답 보기 시 적용될 CSS (텍스트 진하게, 검정, 배경 흰색)
+    # ✅ 정답 보기 CSS (진하게 + 줄 간격 넉넉하게 + 박스 고정)
     if show_answer:
         st.markdown("""
             <style>
             .readonly-box {
+                display: block;
                 background: rgba(255,255,255,0.95);
                 color: #111;
                 font-size: 1.15em;
                 font-weight: 700;
                 font-family: 'Segoe UI', sans-serif;
                 border-radius: 7px;
-                padding: 8px 13px;
+                padding: 10px 14px;
                 box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-                line-height: 1.8em;
+                line-height: 1.9em;
                 white-space: pre-wrap;
+                width: 100%;
+                margin-bottom: 12px;
             }
             </style>
         """, unsafe_allow_html=True)
 
-    # 반복 처리 (5절씩)
+    # 반복 출력 (5절)
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
@@ -222,11 +224,11 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 정답 보기일 경우: 스타일 텍스트 박스로 출력
         if show_answer:
+            # ✅ div 박스로 출력 (textarea 대신)
             st.markdown(f"<div class='readonly-box'>{correct_text}</div>", unsafe_allow_html=True)
-
         else:
+            # 입력창
             st.text_area(
                 "",
                 value=typed_input,
@@ -235,7 +237,7 @@ elif mode == "부분 암송 테스트":
                 label_visibility="collapsed"
             )
 
-        # 결과 보기: 항상 체크되면 표시
+        # 결과 보기 (정답 보기와 무관하게 항상 평가)
         if check_result:
             if typed_input == "":
                 st.markdown(
