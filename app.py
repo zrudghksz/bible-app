@@ -198,11 +198,11 @@ elif mode == "부분 암송 테스트":
                 f"""
                 <div style="
                     background: #fff;
-                    color: #222
+                    color: #14428c;
                     border-radius: 7px;
                     padding: 9px 18px;
-                    font-size: 1.10em;
-                    font-weight: 400;
+                    font-size: 1.3em;
+                    font-weight: 800;
                     border: 2px solid #b3c9ee;
                     margin-bottom: 10px;">
                 {correct_text}
@@ -275,7 +275,7 @@ elif mode == "전체 암송 테스트":
                 display: inline-block;
                 background: rgba(255,255,255,0.94);
                 color: #14428c;
-                font-size: 1.15em;
+                font-size: 1.3em;
                 font-weight: 800;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
