@@ -334,7 +334,7 @@ elif mode == "전체 암송 테스트":
                 "",
                 value=st.session_state[key],
                 key=key,
-                placeholder="직접 암송해보세요.",
+                placeholder="직접 입력해보세요.",
                 label_visibility="collapsed"
             )
 
