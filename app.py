@@ -159,14 +159,28 @@ elif mode == "전체 듣기":
 
 elif mode == "부분 암송 테스트":
     st.subheader("🧠 부분 암송 테스트 (5절씩)")
-    start_label = st.selectbox("📝 시작 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
+    
+    # --- 하얀색 안내문 ---
+    st.markdown(
+        "<span style='color:#fff; font-weight:800; font-size:1.13em; display:block; margin-bottom:13px;'>📝 시작 절을 선택하세요.</span>",
+        unsafe_allow_html=True
+    )
+    start_label = st.selectbox("", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
     start_num = int(start_label.replace("절", ""))
 
     col1, col2 = st.columns(2)
     with col1:
-        show_answer = st.toggle("전체 정답 보기", value=False)
+        st.markdown(
+            "<span style='color:#fff; font-weight:800; font-size:1.13em;'>전체 정답 보기</span>",
+            unsafe_allow_html=True
+        )
+        show_answer = st.toggle("", value=False)
     with col2:
-        check_result = st.toggle("결과 보기", value=False)
+        st.markdown(
+            "<span style='color:#fff; font-weight:800; font-size:1.13em;'>결과 보기</span>",
+            unsafe_allow_html=True
+        )
+        check_result = st.toggle("", value=False)
 
     user_inputs = []
     correctness = []
