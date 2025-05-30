@@ -278,11 +278,12 @@ elif mode == "전체 암송 테스트":
 
         /* 정답 보기 시 비활성화 텍스트 스타일 */
         .stTextArea textarea:disabled {
-            color: #222 !important;
+            color: #111 !important;
             font-size: 1.15em !important;
             font-weight: 400 !important;
             line-height: 1.8em !important;
             font-family: 'Segoe UI', sans-serif !important;
+            opacity: 1 !important;  /* ← 흐림 현상 제거 */
         }
 
         /* 결과 태그 */
