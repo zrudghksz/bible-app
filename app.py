@@ -197,18 +197,18 @@ elif mode == "부분 암송 테스트":
             st.markdown(
                 f"""
                 <div style="
-                    background: #fff;
-                    color: #222
+                     background: rgba(255,255,255,0.94); 
+                    color: #14428c;
                     border-radius: 7px;
-                    padding: 9px 18px;
-                    font-size: 1.3em;
-                    font-weight: 400;
-                    border: 2px solid #b3c9ee;
-                    margin-bottom: 10px;">
+                    font-size: 1.15em;
+                    font-weight: 800;
+                    padding: 4px 13px 4px 10px;
+                    margin-bottom: 12px;
+                    box-shadow: 0 2px 12px rgba(70,70,120,0.13);">
                 {correct_text}
                 </div>
                 """, unsafe_allow_html=True
-            )
+             )
             # 입력창을 덮어쓰지 않음(세션 유지 X)
         else:
             input_text = st.text_area(
