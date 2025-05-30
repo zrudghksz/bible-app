@@ -160,7 +160,6 @@ elif mode == "전체 듣기":
 elif mode == "부분 암송 테스트":
     st.subheader("🧠 부분 암송 테스트 (5절씩)")
 
-    # --- 하얀색 안내문 ---
     st.markdown(
         "<span style='color:#fff; font-weight:800; font-size:1.13em; display:block; margin-bottom:13px;'>📝 시작 절을 선택하세요.</span>",
         unsafe_allow_html=True
@@ -182,22 +181,19 @@ elif mode == "부분 암송 테스트":
         )
         check_result = st.toggle("check_result_toggle", value=False, label_visibility="collapsed")
 
-    # 입력값 저장/복원
-    user_inputs = []
-
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"input_{i}"
 
-        # 절 번호 라벨 (더 진하게!)
+        # --- 절 번호 라벨 (진하게) ---
         st.markdown(
             f"""
             <span style="
                 display: inline-block;
-                background: rgba(255,255,255,0.97);
+                background: rgba(255,255,255,0.96);
                 color: #193e73;
-                font-size: 1.18em;
+                font-size: 1.15em;
                 font-weight: 900;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
@@ -208,18 +204,15 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 정답보기 켜면 입력창 disable, 아니면 기존 입력값 보존
+        # --- 입력창 or 정답 box ---
         if show_answer:
-            # 정답 출력(비활성)
-            st.text_area(
-                "",
-                value=correct_text,
-                key=f"{key}_answer",
-                disabled=True,
-                label_visibility="collapsed"
+            # 정답을 강조된 box로 출력 (markdown-highlight 스타일 사용)
+            st.markdown(
+                f"<div class='markdown-highlight' style='margin-bottom:10px; color:#193e73; font-weight:900; font-size:1.11em;'>{correct_text}</div>",
+                unsafe_allow_html=True
             )
         else:
-            # 이전 입력값 복구
+            # 입력값은 세션에서 불러옴, 수정시에도 저장
             input_val = st.session_state.get(key, "")
             input_text = st.text_area(
                 "",
@@ -228,26 +221,20 @@ elif mode == "부분 암송 테스트":
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
-            # 세션에 값 저장
             st.session_state[key] = input_text
-            user_inputs.append(input_text)
 
-            # 결과표시: 정답보기 꺼져있을 때만!
+            # 결과보기: 정답보기 꺼져있을 때만!
             if check_result:
-                if input_text.strip() == "":
-                    st.markdown(
-                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답 (빈칸)</div>",
-                        unsafe_allow_html=True
-                    )
-                else:
+                # 오답 판정(빈칸 포함)
+                is_correct = False
+                if input_text.strip() != "":
                     is_correct = compare_texts(correct_text, input_text)
-                    st.markdown(
-                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
-                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                        unsafe_allow_html=True
-                    )
-        # 정답보기 on, 결과보기 on 동시에는 결과 숨김(불필요하니 주석)
-        # (혹시 동시 체크도 필요하면 이 부분에서 안내 가능)
+                st.markdown(
+                    f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
+                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                    unsafe_allow_html=True
+                )
+
 
 
 
