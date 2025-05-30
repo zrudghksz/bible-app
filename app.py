@@ -306,47 +306,46 @@ elif mode == "전체 암송 테스트":
     user_inputs = []
 
     for i in range(len(verse_texts)):
-        correct_text = verse_texts[i]
-        key = f"full_{i}"
-        if key not in st.session_state:
-            st.session_state[key] = ""
+    correct_text = verse_texts[i]
+    key = f"full_{i}"
 
-        # 절 번호 라벨 박스 (부분 테스트와 통일)
-        st.markdown(
-            f"""<span class="verse-label">{i+1}절</span>""",
-            unsafe_allow_html=True
+    if key not in st.session_state:
+        st.session_state[key] = ""
+
+    # 절 번호 라벨
+    st.markdown(f"""<span class="verse-label">{i+1}절</span>""", unsafe_allow_html=True)
+
+    # 절별 정답 보기
+    show_individual_answer = st.checkbox(f"{i+1}절 정답 보기", key=f"show_ans_{i}")
+
+    # 정답 보기 여부
+    showing_answer = show_answer or show_individual_answer
+
+    # ✅ 입력창
+    if showing_answer:
+        # 정답 보기 중에는 입력 영향 없는 더미 key 사용
+        input_text = st.text_area(
+            "",
+            value=correct_text,
+            key=f"view_only_{i}",  # 중요! 실제 세션 상태에 영향 없음
+            placeholder="",
+            label_visibility="collapsed"
+        )
+    else:
+        # 사용자 입력용 입력창
+        input_text = st.text_area(
+            "",
+            value=st.session_state[key],
+            key=key,
+            placeholder="직접 입력해보세요.",
+            label_visibility="collapsed"
         )
 
-        # 절별 정답 보기 체크박스
-        show_individual_answer = st.checkbox(f"{i+1}절 정답 보기", key=f"show_ans_{i}")
-
-        # 입력창 생성
-        if show_answer or show_individual_answer:
-            # ✅ 정답 보기 모드:
-            input_text = st.text_area(
-                "",
-                value=correct_text, 
-                key=key,
-                placeholder="",
-                label_visibility="collapsed"
-            )
-        else:
-            # ✅ 정답 숨김 모드: 사용자 입력 유지, 안내 문구는 흐릿하게
-            input_text = st.text_area(
-                "",
-                value=st.session_state[key],
-                key=key,
-                placeholder="직접 입력해보세요.",
-                label_visibility="collapsed"
-            )
-
-        user_inputs.append(input_text)
-
-        # ✅ 결과 평가 출력 (정답 보기 상태에서는 평가하지 않음)
-        if show_result and not (show_answer or show_individual_answer):
-            is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
-            st.markdown(
-                f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
-                f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                unsafe_allow_html=True
-            )
+    # ✅ 결과 평가 (정답 보기 중일 땐 평가 생략)
+    if show_result and not showing_answer:
+        is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
+        st.markdown(
+            f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
+            f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+            unsafe_allow_html=True
+        )
