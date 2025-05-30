@@ -30,6 +30,8 @@ def compare_texts(correct, user):
     ratio = difflib.SequenceMatcher(None, correct_clean, user_clean).ratio()
     return ratio >= 0.95
 
+
+# 문자 및 상자 ---
 st.markdown("""
 <style>
 /* 1. 전체 앱 배경: 기존 사진 유지 */
@@ -41,9 +43,9 @@ st.markdown("""
 }
 
 /* 2. 제목/소제목(크고 굵은 진파랑, 흰 그림자, 박스) */
-h1, h2, h3 {
+h1, h2, h3, .section-title {
     color: #193e73 !important;
-    background: rgba(255,255,255,0.89) !important;
+    background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
     border-radius: 10px !important;
     padding: 13px 18px !important;
     font-weight: 900 !important;
@@ -66,22 +68,32 @@ h1, h2, h3 {
     padding: 0 !important;
 }
 
-/* 4. 선택/토글/라디오/체크박스/셀렉트 박스 */
-.stRadio, .stToggle, .stCheckbox, .stSelectbox {
-    background: rgba(255,255,255,0.94) !important;
-    border-radius: 10px !important;
-    padding: 7px 13px 7px 12px;
-    box-shadow: 0 2px 9px rgba(180,190,210,0.11);
-    margin-bottom: 12px;
+/* 4. 모드 선택 라디오 전체 박스 더 강조 */
+.stRadio {
+    background: linear-gradient(92deg, #e3f2fd 60%, #f5faff 100%) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(65,125,185,0.08), 0 1.5px 12px #b4dbfb;
+    padding: 10px 18px 10px 16px;
+    border: 1.5px solid #aed7fa !important;
+    margin-bottom: 13px;
 }
 
-/* 5. 드롭다운 옵션 자체 폰트 */
+/* 5. 체크박스/토글 등 라벨은 진한 파랑 */
+.stCheckbox label, .stToggle label {
+    color: #2274ad !important;
+    font-weight: 900 !important;
+    font-size: 1.09em !important;
+    text-shadow: 0 1px 7px #e2ecff !important;
+    background: none !important;
+}
+
+/* 6. 드롭다운 옵션 자체 폰트 */
 [data-baseweb="select"] > div {
     color: #2350aa !important;
     font-weight: 800 !important;
 }
 
-/* 6. 안내/강조문, 자막 등은 .markdown-highlight 클래스 사용 */
+/* 7. 안내/강조문, 자막 등은 .markdown-highlight 클래스 사용 */
 .markdown-highlight {
     background: rgba(255,255,255,0.95);
     border-radius: 8px;
@@ -93,7 +105,7 @@ h1, h2, h3 {
     box-shadow: 0 2px 10px rgba(160,170,210,0.13);
 }
 
-/* 7. 전체 기본 폰트(내용) 약간 더 진하고 균일하게 */
+/* 8. 전체 기본 폰트(내용) 약간 더 진하고 균일하게 */
 body, .stApp, .stMarkdown {
     color: #23272f !important;
     font-weight: 500 !important;
@@ -101,6 +113,7 @@ body, .stApp, .stMarkdown {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # --- 앱 제목  ---
