@@ -258,17 +258,17 @@ elif mode == "부분 암송 테스트":
 elif mode == "전체 암송 테스트":
     st.subheader("🧠 전체 암송 테스트 (29절)")
 
-    # 토글
+    # ✅ 정답/결과 보기 토글
     col1, col2 = st.columns([1, 1])
     with col1:
         show_answer = st.toggle("정답 보기", value=False)
     with col2:
         show_result = st.toggle("결과 보기", value=False)
 
-    # 스타일
+    # ✅ CSS 스타일 정의
     st.markdown("""
         <style>
-        /* placeholder 스타일 */
+        /* 🔹 placeholder 텍스트 스타일 */
         textarea::placeholder {
             color: rgba(0,0,0,0.4) !important;
             font-size: 1.05em !important;
@@ -276,7 +276,7 @@ elif mode == "전체 암송 테스트":
             font-family: 'Segoe UI', sans-serif !important;
         }
 
-        /* 정답 보기 시 폰트 진하게 + 줄간격 확보 */
+        /* 🔹 정답 보기 시: 비활성화 텍스트 스타일 (선명 + 진하게 + 줄간격) */
         .stTextArea textarea:disabled {
             color: #111 !important;
             font-size: 1.15em !important;
@@ -285,25 +285,25 @@ elif mode == "전체 암송 테스트":
             font-family: 'Segoe UI', sans-serif !important;
         }
 
+        /* 🔹 결과 표시 태그 */
         .result-tag {
             font-weight: bold;
             margin-left: 6px;
             color: green;
             font-size: 15px;
         }
-
         .result-tag.wrong {
             color: red;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # 본문 출력
+    # ✅ 본문 반복 출력
     for i in range(len(verse_texts)):
         correct_text = verse_texts[i]
         key = f"full_{i}"
 
-        # 절 라벨
+        # 절 번호 라벨 박스
         st.markdown(
             f"""
             <span style="
@@ -321,19 +321,23 @@ elif mode == "전체 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 사용자 입력 or 정답 보기
+        # ✅ 입력 텍스트 (정답 보기 시 비활성화 상태)
         input_text = st.text_area(
             label="",
             value=st.session_state.get(key, ""),
             key=key,
             placeholder="직접 입력해 보세요." if not show_answer else "",
             label_visibility="collapsed",
-            disabled=show_answer  # 정답 보기 시 비활성화
+            disabled=show_answer
         )
 
-        # 결과 보기
+        # ✅ 결과 보기 평가
         if show_result:
-            is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
+            if input_text.strip() == "":
+                is_correct = False
+            else:
+                is_correct = compare_texts(correct_text, input_text.strip())
+
             st.markdown(
                 f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
                 f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
