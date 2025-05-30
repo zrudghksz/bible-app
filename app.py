@@ -205,6 +205,7 @@ elif mode == "부분 암송 테스트":
             st.markdown(
                 f"""
                 <div style="
+                    display: inline-block;
                     background: rgba(255,255,255,0.94); 
                     color: #14428c;
                     border-radius: 7px;
