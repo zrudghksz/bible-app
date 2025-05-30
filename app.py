@@ -175,13 +175,14 @@ elif mode == "부분 암송 테스트":
         correct_text = verse_texts[verse_index]
         key = f"input_partial_{i}"
 
+        # 절 번호 라벨(전체와 동일)
         st.markdown(
             f"""
             <span style="
                 display: inline-block;
                 background: rgba(255,255,255,0.94);
                 color: #14428c;
-                font-size: 1.15em;
+                font-size: 1.5em;
                 font-weight: 800;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
@@ -192,12 +193,12 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 정답 보기 켜진 경우
+        # 정답 보기 박스(전체와 동일)
         if show_answer:
             st.markdown(
                 f"""
                 <div style="
-                     background: rgba(255,255,255,0.94); 
+                    background: rgba(255,255,255,0.94); 
                     color: #14428c;
                     border-radius: 7px;
                     font-size: 1.15em;
@@ -208,8 +209,7 @@ elif mode == "부분 암송 테스트":
                 {correct_text}
                 </div>
                 """, unsafe_allow_html=True
-             )
-            # 입력창을 덮어쓰지 않음(세션 유지 X)
+            )
         else:
             input_text = st.text_area(
                 "",
@@ -219,7 +219,6 @@ elif mode == "부분 암송 테스트":
                 label_visibility="collapsed"
             )
 
-            # 결과 보기
             if check_result:
                 if input_text.strip() == "":
                     st.markdown(
@@ -233,8 +232,6 @@ elif mode == "부분 암송 테스트":
                         f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                         unsafe_allow_html=True
                     )
-
-
 
 elif mode == "전체 암송 테스트":
     st.subheader("🧠 전체 암송 테스트 (29절)")
@@ -262,13 +259,13 @@ elif mode == "전체 암송 테스트":
     """, unsafe_allow_html=True)
     user_inputs = []
 
-    for i in range(len(verse_texts)):    # ← 여기 들여쓰기 맞춰야 함
+    for i in range(len(verse_texts)):
         correct_text = verse_texts[i]
         key = f"full_{i}"
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        # ---- 절 번호 상자 라벨 추가 ----
+        # 절 번호 라벨(부분과 100% 동일)
         st.markdown(
             f"""
             <span style="
