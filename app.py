@@ -168,7 +168,7 @@ elif mode == "부분 암송 테스트":
     start_label = st.selectbox("", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
     start_num = int(start_label.replace("절", ""))
 
-    # 토글은 반드시 각기 다른 label 또는 key를 사용해야 함 (label_visibility="collapsed" 가능)
+    # --- 토글 각각 고유 label 또는 key ---
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
@@ -184,7 +184,6 @@ elif mode == "부분 암송 테스트":
         check_result = st.toggle("check_result_toggle", value=False, label_visibility="collapsed")
 
     user_inputs = []
-    correctness = []
 
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
@@ -193,7 +192,7 @@ elif mode == "부분 암송 테스트":
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        # --- 각 절 라벨 스타일 강조 ---
+        # --- 절 번호 라벨 ---
         st.markdown(
             f"""
             <span style="
@@ -227,13 +226,22 @@ elif mode == "부분 암송 테스트":
 
         user_inputs.append(input_text)
 
-        if check_result:
-            is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
-            st.markdown(
-                f"<div style='color:{'green' if is_correct else 'red'}; font-weight:bold; font-size:16px;'>"
-                f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                unsafe_allow_html=True
-            )
+        # --- 결과 표시: show_answer가 켜져 있을 땐 표시 X ---
+        if check_result and not show_answer:
+            # 빈칸(공백제거) = 오답, 그 외 공백무시 정답비교
+            if input_text.strip() == "":
+                st.markdown(
+                    f"<div style='color:red; font-weight:bold; font-size:16px;'>❌ 오답</div>",
+                    unsafe_allow_html=True
+                )
+            else:
+                is_correct = compare_texts(correct_text, input_text)
+                st.markdown(
+                    f"<div style='color:{'green' if is_correct else 'red'}; font-weight:bold; font-size:16px;'>"
+                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                    unsafe_allow_html=True
+                )
+
 
 
 elif mode == "전체 암송 테스트":
