@@ -280,7 +280,7 @@ elif mode == "전체 암송 테스트":
 
         /* textarea 내부 placeholder 스타일 (정답 표시용) */
         textarea::placeholder {
-            font-size: 14px !important;  /* 정답 글자 크기 별도 조정 */
+            font-size: 18px !important;  /* 정답 글자 크기 별도 조정 */
             color: black !important;
             opacity: 1 !important;
         }
