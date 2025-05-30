@@ -139,9 +139,21 @@ body, .stApp, .stMarkdown {
     font-weight: 500 !important;
     font-size: 1.04em !important;
 }
-.stRadio ul {
+/* 라디오 불릿/점 완전 제거 (모든 환경 호환) */
+.stRadio ul, .stRadio li, .stRadio span, .stRadio div {
     list-style-type: none !important;
-    padding-left: 0 !important;
+}
+.stRadio li::marker,
+.stRadio li::before,
+.stRadio li::after,
+.stRadio span::before,
+.stRadio span::after {
+    content: "" !important;
+    display: none !important;
+}
+.stRadio ul, .stRadio li {
+    box-shadow: none !important;
+    background-image: none !important;
 }
 </style>
 """, unsafe_allow_html=True)
