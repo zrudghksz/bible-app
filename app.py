@@ -30,17 +30,6 @@ def compare_texts(correct, user):
     ratio = difflib.SequenceMatcher(None, correct_clean, user_clean).ratio()
     return ratio >= 0.95
 
-st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centered")
-
-st.markdown(
-    f"<div style='display:inline-block;background:rgba(255,255,255,0.96);"
-    "color:#133688;font-size:1.13em;font-weight:900;padding:3px 12px 2px 10px;"
-    "border-radius:7px;margin-bottom:7px;box-shadow:0 2px 9px rgba(70,70,120,0.10);"
-    "text-shadow:0 2px 9px #fff,0 1px 8px #ccc;'>"
-    f"{i}절</div>",
-    unsafe_allow_html=True,
-)
-
 st.markdown("""
 <style>
 /* 1. 전체 앱 배경: 기존 사진 유지 */
@@ -51,69 +40,67 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* 2. 제목/소제목 */
+/* 2. 제목/소제목(크고 굵은 진파랑, 흰 그림자, 박스) */
 h1, h2, h3 {
-    color: #203a5e !important;                  /* 짙은 남색 */
+    color: #193e73 !important;
     background: rgba(255,255,255,0.89) !important;
     border-radius: 10px !important;
-    padding: 11px 16px !important;
-    font-weight: 800 !important;
-    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;
-    box-shadow: 0 1px 8px rgba(80,90,100,0.09);
-    margin-bottom: 16px !important;
+    padding: 13px 18px !important;
+    font-weight: 900 !important;
+    font-size: 1.35em !important;
+    text-shadow: 0 2px 8px #fff, 0 1px 8px #aab7cf !important;
+    box-shadow: 0 2px 10px rgba(60,70,90,0.10);
+    margin-bottom: 18px !important;
 }
 
-/* 3. 메뉴 라벨(라디오/토글/체크/셀렉트/텍스트라벨 등) */
-.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label, .st-b8, .css-1c7y2kd,
-.stTextInput > label, .stTextArea > label {
-    color: #22336b !important;              /* 진한 남색 */
-    font-weight: 800 !important;            /* 가장 굵게 */
-    font-size: 1.08em !important;
-    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;
-    letter-spacing: 0.01em;
+/* 3. 모든 라벨(라디오/토글/체크/셀렉트/텍스트라벨 등) */
+.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label,
+.stTextInput > label, .stTextArea > label, .st-b8, .css-1c7y2kd {
+    color: #2350aa !important;         /* 선명한 진파랑 */
+    font-weight: 800 !important;
+    font-size: 1.10em !important;
+    text-shadow: 0 2px 9px #fff, 0 1px 7px #e2ecff !important;
     background: none !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
 }
 
-/* 4. 선택박스, 토글, 라디오, 체크배경 최소 강조 (너무 튀지 않게) */
+/* 4. 선택/토글/라디오/체크박스/셀렉트 박스 */
 .stRadio, .stToggle, .stCheckbox, .stSelectbox {
-    background: rgba(255,255,255,0.93) !important;
+    background: rgba(255,255,255,0.94) !important;
     border-radius: 10px !important;
-    padding: 7px 12px 5px 12px;
-    box-shadow: 0 1px 7px rgba(200,200,220,0.10);
-    margin-bottom: 10px;
+    padding: 7px 13px 7px 12px;
+    box-shadow: 0 2px 9px rgba(180,190,210,0.11);
+    margin-bottom: 12px;
 }
 
-/* 5. 드롭다운 옵션 (선택시 보이는 옵션 폰트) */
+/* 5. 드롭다운 옵션 자체 폰트 */
 [data-baseweb="select"] > div {
-    color: #22336b !important;
+    color: #2350aa !important;
     font-weight: 800 !important;
 }
 
-/* 6. 안내/강조문, 자막 (직접 class 지정해 사용) */
+/* 6. 안내/강조문, 자막 등은 .markdown-highlight 클래스 사용 */
 .markdown-highlight {
-    background: rgba(255,255,255,0.93);
+    background: rgba(255,255,255,0.95);
     border-radius: 8px;
-    padding: 8px 12px;
-    color: #16366a;
+    padding: 10px 14px;
+    color: #1a377b;
     font-size: 1.08em;
     font-weight: 700;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 7px rgba(180,180,200,0.11);
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(160,170,210,0.13);
 }
 
-/* 7. 전체 기본 폰트(내용) 약간 진하게 */
+/* 7. 전체 기본 폰트(내용) 약간 더 진하고 균일하게 */
 body, .stApp, .stMarkdown {
     color: #23272f !important;
     font-weight: 500 !important;
     font-size: 1.04em !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
-
 
 
 # --- 앱 제목  ---
