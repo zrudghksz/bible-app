@@ -221,7 +221,6 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-
         # --- 입력창 (정답 보기 시 정답 표시, 아니면 입력값) ---
         if show_answer:
             display_value = correct_text
@@ -273,43 +272,42 @@ elif mode == "전체 암송 테스트":
     """, unsafe_allow_html=True)
     user_inputs = []
 
-        for i in range(len(verse_texts)):
-            correct_text = verse_texts[i]
-            key = f"full_{i}"
-            if key not in st.session_state:
-                st.session_state[key] = ""
-    
-            # ---- 절 번호 상자 라벨 추가 ----
+    for i in range(len(verse_texts)):    # ← 여기 들여쓰기 맞춰야 함
+        correct_text = verse_texts[i]
+        key = f"full_{i}"
+        if key not in st.session_state:
+            st.session_state[key] = ""
+
+        # ---- 절 번호 상자 라벨 추가 ----
+        st.markdown(
+            f"""
+            <span style="
+                display: inline-block;
+                background: rgba(255,255,255,0.94);
+                color: #14428c;
+                font-size: 1.15em;
+                font-weight: 800;
+                padding: 4px 13px 4px 10px;
+                border-radius: 7px;
+                margin-bottom: 6px;
+                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+            ">{i+1}절</span>
+            """,
+            unsafe_allow_html=True
+        )
+
+        input_text = st.text_area(
+            "",
+            value=st.session_state[key],
+            key=key,
+            placeholder=correct_text if show_answer else "",
+            label_visibility="collapsed"
+        )
+        user_inputs.append(input_text)
+        if show_result:
+            is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
             st.markdown(
-                f"""
-                <span style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.94);
-                    color: #14428c;
-                    font-size: 1.15em;
-                    font-weight: 800;
-                    padding: 4px 13px 4px 10px;
-                    border-radius: 7px;
-                    margin-bottom: 6px;
-                    box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-                ">{i+1}절</span>
-                """,
+                f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
+                f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                 unsafe_allow_html=True
             )
-
-            input_text = st.text_area(
-                "",
-                value=st.session_state[key],
-                key=key,
-                placeholder=correct_text if show_answer else "",
-                label_visibility="collapsed"
-            )
-            user_inputs.append(input_text)
-            if show_result:
-                is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
-                st.markdown(
-                    f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
-                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                    unsafe_allow_html=True
-                )
-
