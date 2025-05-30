@@ -32,120 +32,79 @@ def compare_texts(correct, user):
 
 st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centered")
 
-# --- 문자 스타일 ---
 st.markdown("""
 <style>
-.stRadio label {
-    color: #29519d !important;  /* 파랑, 진하게 */
-    font-weight: 600 !important;
-    font-size: 1.10em !important;
-}
-
-h1 {
-    color: #203a5e !important;
-    background: rgba(255,255,255,0.85);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 2rem !important;
-    font-weight: 700 !important;
-    margin-bottom: 18px !important;
-    box-shadow: 0 1px 8px rgba(80,90,100,0.08);
-}
-
-/* 소제목(섹션 제목 등)은 살짝만 강조 */
-h2, h3 {
-    color: #29519d !important;
-    background: rgba(255,255,255,0.80);
-    border-radius: 7px;
-    padding: 7px 13px 7px 12px;
-    font-size: 1.25rem !important;
-    font-weight: 600 !important;
-    margin-bottom: 14px !important;
-}
-
-/* ------ 강조 안내문, 자막용 박스 스타일 추가 ------ */
-.markdown-highlight {
-    background: rgba(255,255,255,0.98);
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: #16366a;
-    font-size: 1.07em;
-    font-weight: 600;
-    margin-bottom: 8px;
-    box-shadow: 0 1px 7px rgba(180,180,200,0.09);
-}
-
-/* 전체 폰트: 더 진하게, 약간 어두운 색 */
-body, .stApp, .stMarkdown, .stRadio label, .stToggle label, .stSelectbox label, label, .st-b8, .css-1c7y2kd {
-    color: #23272f !important;
-    font-weight: 500 !important;
-    font-size: 1.04em !important;
-}
-
-/* 안내/강조문: 진한 글씨+연한 흰 배경 */
-.markdown-highlight {
-    background: rgba(255,255,255,0.90);
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: #16366a;
-    font-size: 1.07em;
-    font-weight: 600;
-    margin-bottom: 8px;
-    box-shadow: 0 1px 7px rgba(180,180,200,0.09);
-}
-
-/* 입력창, 셀렉트, 라디오 등은 기본 Streamlit 스타일 최대한 유지 */
-.stTextArea textarea, .stTextInput input, .stSelectbox div[data-baseweb="select"] {
-    background: rgba(255,255,255,0.96) !important;
-    border-radius: 10px !important;
-    box-shadow: 0 3px 10px rgba(60,60,70,0.08);
-    font-size: 1em !important;
-    color: #23272f !important;
-    font-weight: 500 !important;
-}
-
-/* 앱 배경은 기존 사진 유지 */
+/* 1. 전체 앱 배경: 기존 사진 유지 */
 .stApp {
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }
-</style>
-""", unsafe_allow_html=True)
 
-st.markdown("""
-<style>
-/* 라디오, 토글, 체크박스, 셀렉트박스 등 라벨 텍스트 */
-.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label, .st-b8, .css-1c7y2kd {
-    color: #22336b !important;      /* 진한 남색 */
-    font-weight: 700 !important;    /* 더 굵게 */
-    font-size: 1.09em !important;   /* 약간 크게 */
-    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;  /* 흰색 아웃라인 */
-}
-
-/* 전체 Select, Checkbox, Toggle, 라디오 배경도 약간 더 흰색 */
-.stRadio, .stToggle, .stCheckbox, .stSelectbox {
-    background: rgba(255,255,255,0.90) !important;
+/* 2. 제목/소제목 */
+h1, h2, h3 {
+    color: #203a5e !important;                  /* 짙은 남색 */
+    background: rgba(255,255,255,0.89) !important;
     border-radius: 10px !important;
-    padding: 6px 12px 5px 12px;
+    padding: 11px 16px !important;
+    font-weight: 800 !important;
+    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;
+    box-shadow: 0 1px 8px rgba(80,90,100,0.09);
+    margin-bottom: 16px !important;
 }
 
-/* 드롭다운(Selectbox) 옵션 자체 폰트도 */
+/* 3. 메뉴 라벨(라디오/토글/체크/셀렉트/텍스트라벨 등) */
+.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label, .st-b8, .css-1c7y2kd,
+.stTextInput > label, .stTextArea > label {
+    color: #22336b !important;              /* 진한 남색 */
+    font-weight: 800 !important;            /* 가장 굵게 */
+    font-size: 1.08em !important;
+    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;
+    letter-spacing: 0.01em;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* 4. 선택박스, 토글, 라디오, 체크배경 최소 강조 (너무 튀지 않게) */
+.stRadio, .stToggle, .stCheckbox, .stSelectbox {
+    background: rgba(255,255,255,0.93) !important;
+    border-radius: 10px !important;
+    padding: 7px 12px 5px 12px;
+    box-shadow: 0 1px 7px rgba(200,200,220,0.10);
+    margin-bottom: 10px;
+}
+
+/* 5. 드롭다운 옵션 (선택시 보이는 옵션 폰트) */
 [data-baseweb="select"] > div {
     color: #22336b !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
 }
 
-/* 기타 입력 타이틀(라벨)도 */
-.stTextInput > label, .stTextArea > label {
-    color: #22336b !important;
-    font-weight: 700 !important;
-    font-size: 1.06em !important;
-    text-shadow: 0 2px 8px #fff, 0 1px 8px #fff !important;
+/* 6. 안내/강조문, 자막 (직접 class 지정해 사용) */
+.markdown-highlight {
+    background: rgba(255,255,255,0.93);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #16366a;
+    font-size: 1.08em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 7px rgba(180,180,200,0.11);
 }
+
+/* 7. 전체 기본 폰트(내용) 약간 진하게 */
+body, .stApp, .stMarkdown {
+    color: #23272f !important;
+    font-weight: 500 !important;
+    font-size: 1.04em !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # --- 앱 제목  ---
