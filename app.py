@@ -179,23 +179,25 @@ elif mode == "부분 암송 테스트":
 
     # 정답 보기 시 적용할 CSS
     if show_answer:
-        st.markdown("""
-            <style>
-            .readonly-box textarea {
-                background: rgba(255,255,255,0.94) !important;
-                color: #111 !important;
-                -webkit-text-fill-color: #111 !important;  /* Chrome 대응 */
-                opacity: 1 !important;                     /* 흐림 제거 */
-                font-size: 1.15em !important;
-                font-weight: 700 !important;
-                font-family: 'Segoe UI', sans-serif !important;
-                border-radius: 7px !important;
-                padding: 8px 13px !important;
-                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-                line-height: 1.8em !important;
-            }    
-            </style>
-        """, unsafe_allow_html=True)
+    st.markdown("""
+        <style>
+        .readonly-box {
+            background: rgba(255,255,255,0.94);
+            color: #111;
+            font-size: 1.15em;
+            font-weight: 700;
+            font-family: 'Segoe UI', sans-serif;
+            border-radius: 7px;
+            padding: 8px 13px;
+            box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+            line-height: 1.8em;
+            white-space: pre-wrap;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"<div class='readonly-box'>{correct_text}</div>", unsafe_allow_html=True)
+
 
 
     for i in range(start_num, start_num + 5):
