@@ -35,7 +35,12 @@ st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centere
 # --- 문자 스타일 ---
 st.markdown("""
 <style>
-/* 제목(가장 큰 글씨만) 강조: 너무 크지 않게! */
+.stRadio label {
+    color: #29519d !important;  /* 파랑, 진하게 */
+    font-weight: 600 !important;
+    font-size: 1.10em !important;
+}
+
 h1 {
     color: #203a5e !important;
     background: rgba(255,255,255,0.85);
@@ -56,6 +61,18 @@ h2, h3 {
     font-size: 1.25rem !important;
     font-weight: 600 !important;
     margin-bottom: 14px !important;
+}
+
+/* ------ 강조 안내문, 자막용 박스 스타일 추가 ------ */
+.markdown-highlight {
+    background: rgba(255,255,255,0.98);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #16366a;
+    font-size: 1.07em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 7px rgba(180,180,200,0.09);
 }
 
 /* 전체 폰트: 더 진하게, 약간 어두운 색 */
@@ -120,14 +137,21 @@ if mode == "부분 듣기":
     st.markdown("---")
     if os.path.exists(path):
         st.audio(path, format='audio/wav')
-        st.markdown(f"<div class='verse-highlight'><b>{verse_texts[verse_num-1]}</b></div>", unsafe_allow_html=True)
+        st.markdown(
+    f"<div class='markdown-highlight'>{verse_texts[verse_num-1]}</div>",
+    unsafe_allow_html=True
+)
+
     else:
         st.error("오디오 파일을 찾을 수 없습니다.")
 
 
 elif mode == "전체 듣기":
-    st.subheader("전체 오디오 자동 재생")
-    st.info("전체 오디오를 자동으로 재생합니다.")
+    st.markdown("🎵  전체 오디오 자동 재생", unsafe_allow_html=True)
+    st.markdown(
+    "<div class='markdown-highlight'>전체 오디오를 자동으로 재생합니다.</div>",
+    unsafe_allow_html=True
+)
     if os.path.exists(full_audio_file):
         st.audio(full_audio_file, format="audio/wav")
     else:
