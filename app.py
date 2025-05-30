@@ -197,11 +197,11 @@ elif mode == "부분 암송 테스트":
                 border-radius: 7px;
                 margin-bottom: 6px;
                 box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-                {i}절
-            </span>
+            ">{i}절</span>
             """,
             unsafe_allow_html=True
         )
+
 
         # --- 입력창 (정답 보기 시 정답 표시, 아니면 입력값) ---
         if show_answer:
