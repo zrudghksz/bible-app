@@ -166,16 +166,35 @@ elif mode == "부분 암송 테스트":
 
     col1, col2 = st.columns(2)
     with col1:
-        show_answer = st.toggle("전체 정답 보기", value=False, key="partial_show_answer")
+        show_answer = st.toggle("정답 보기", value=False, key="partial_show_answer")
     with col2:
-        check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
+        show_result = st.toggle("결과 보기", value=False, key="partial_show_result")
+
+    # 결과 색상 CSS 통일
+    st.markdown("""
+        <style>
+        textarea::placeholder {
+            color: black !important;
+            opacity: 1 !important;
+        }
+        .result-tag {
+            font-weight: bold;
+            margin-left: 6px;
+            color: green;
+            font-size: 15px;
+        }
+        .result-tag.wrong {
+            color: red;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"input_partial_{i}"
 
-        # 절 번호 라벨(전체와 동일)
+        # --- 절 번호 상자 라벨 (전체 테스트와 동일) ---
         st.markdown(
             f"""
             <span style="
@@ -193,12 +212,12 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 정답 보기 박스(전체와 동일)
+        # --- 정답 보기 켜진 경우 ---
         if show_answer:
             st.markdown(
                 f"""
                 <div style="
-                    background: rgba(255,255,255,0.94); 
+                     background: rgba(255,255,255,0.94); 
                     color: #14428c;
                     border-radius: 7px;
                     font-size: 1.15em;
@@ -218,20 +237,21 @@ elif mode == "부분 암송 테스트":
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
-
-            if check_result:
+            # 결과 보기
+            if show_result:
                 if input_text.strip() == "":
                     st.markdown(
-                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
+                        f"<div class='result-tag wrong'>❌ 오답</div>",
                         unsafe_allow_html=True
                     )
                 else:
                     is_correct = compare_texts(correct_text, input_text)
                     st.markdown(
-                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
+                        f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
                         f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                         unsafe_allow_html=True
                     )
+
 
 elif mode == "전체 암송 테스트":
     st.subheader("🧠 전체 암송 테스트 (29절)")
@@ -265,7 +285,7 @@ elif mode == "전체 암송 테스트":
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        # 절 번호 라벨(부분과 100% 동일)
+        # 절 번호 라벨 (부분과 완전히 동일)
         st.markdown(
             f"""
             <span style="
