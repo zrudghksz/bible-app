@@ -35,6 +35,32 @@ st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centere
 # ✅ [복구] 전체 스타일을 한 번에!
 st.markdown("""
     <style>
+    /* 전체 앱 텍스트(본문, 안내문, 라벨 등) 명도 및 배경 강화 */
+    .stApp, .css-ffhzg2, .stMarkdown, .stRadio label, .stText, .st-b8, .css-1kyxreq, .css-1c7y2kd, .css-10trblm, .css-qrbaxs, .stToggle label {
+        color: #222 !important; /* 진한 글씨 */
+        text-shadow: 0 1px 6px #fff, 0 1px 6px #fff !important; /* 밝은 아웃라인 */
+        font-weight: 600 !important;
+        background: rgba(255,255,255,0.78) !important; /* 안내문 포함 모두 반투명 흰 배경 */
+        border-radius: 10px !important;
+        padding: 8px 14px !important;
+        margin-bottom: 12px !important;
+    }
+    /* 제목, 소제목 별도 진하게 */
+    h1, h2, h3, h4 {
+        color: navy !important;
+        text-shadow: 0 2px 8px #fff, 0 2px 8px #fff !important;
+        background: rgba(255,255,255,0.90) !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+    }
+    /* 불필요한 회색 박스 제거(라디오, 토글 등) */
+    .stRadio, .stToggle {
+        background: none !important;
+        box-shadow: none !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+    <style>
     textarea::placeholder {
         color: black !important;
         opacity: 1 !important;
