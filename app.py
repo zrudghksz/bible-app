@@ -173,13 +173,13 @@ elif mode == "부분 암송 테스트":
             "<span style='color:#fff; font-weight:900; font-size:1.13em;'>전체 정답 보기</span>",
             unsafe_allow_html=True
         )
-        show_answer = st.toggle("show_answer_toggle", value=False, label_visibility="collapsed")
+        show_answer = st.toggle("show_answer_toggle", value=False, key="toggle_show_answer", label_visibility="collapsed")
     with col2:
         st.markdown(
             "<span style='color:#fff; font-weight:900; font-size:1.13em;'>결과 보기</span>",
             unsafe_allow_html=True
         )
-        check_result = st.toggle("check_result_toggle", value=False, label_visibility="collapsed")
+        check_result = st.toggle("check_result_toggle", value=False, key="toggle_check_result", label_visibility="collapsed")
 
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
@@ -204,37 +204,38 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # --- 입력창 or 정답 box ---
         if show_answer:
-            # 정답을 강조된 box로 출력 (markdown-highlight 스타일 사용)
+            # 정답만 박스에 진하게!
             st.markdown(
                 f"<div class='markdown-highlight' style='margin-bottom:10px; color:#193e73; font-weight:900; font-size:1.11em;'>{correct_text}</div>",
                 unsafe_allow_html=True
             )
         else:
-            # 입력값은 세션에서 불러옴, 수정시에도 저장
-            input_val = st.session_state.get(key, "")
+            # 입력값(유지) 입력창
             input_text = st.text_area(
                 "",
-                value=input_val,
+                value=st.session_state.get(key, ""),
                 key=key,
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
             st.session_state[key] = input_text
 
-            # 결과보기: 정답보기 꺼져있을 때만!
+            # 결과보기 ON 시에만 오답/정답 표시
             if check_result:
-                # 오답 판정(빈칸 포함)
-                is_correct = False
-                if input_text.strip() != "":
+                # 빈칸/오답/정답 판정
+                if input_text.strip() == "":
+                    st.markdown(
+                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
+                        unsafe_allow_html=True
+                    )
+                else:
                     is_correct = compare_texts(correct_text, input_text)
-                st.markdown(
-                    f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
-                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                    unsafe_allow_html=True
-                )
-
+                    st.markdown(
+                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
+                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                        unsafe_allow_html=True
+                    )
 
 
 
