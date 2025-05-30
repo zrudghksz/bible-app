@@ -32,8 +32,7 @@ def compare_texts(correct, user):
 
 st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centered")
 
-
-# --- 문자 및 스타일 ---
+# 👇 바로 아래에 붙여넣기!
 st.markdown("""
 <style>
 /* 제목/소제목 강조 */
@@ -47,7 +46,6 @@ h1, h2, h3, h4 {
     margin-bottom: 18px !important;
     box-shadow: 0 2px 10px rgba(80,90,100,0.09);
 }
-
 /* 안내문/결과 등 강조할 문단에 적용 */
 .markdown-highlight {
     background: rgba(255,255,255,0.88);
@@ -59,16 +57,13 @@ h1, h2, h3, h4 {
     margin-bottom: 10px;
     box-shadow: 0 1px 8px rgba(160,160,180,0.09);
 }
-
 /* 라디오/토글/셀렉트 등 라벨 텍스트 진하게 */
 .stRadio label, .stToggle label, .stSelectbox label {
     color: #1a2222 !important;
     font-weight: 600 !important;
     font-size: 1.07em !important;
 }
-
 /* 입력창은 원래대로! (추가 조정 안함) */
-
 /* 앱 배경은 기존대로 유지 */
 .stApp {
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
