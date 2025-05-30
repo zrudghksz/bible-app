@@ -183,7 +183,7 @@ elif mode == "부분 암송 테스트":
             <style>
             .readonly-box textarea {
                 background: rgba(255,255,255,0.94) !important;
-                color: #222 !important;
+                color: #111 !important;
                 font-size: 1.3em !important;
                 font-weight: 700 !important;
                 font-family: 'Segoe UI', sans-serif !important;
