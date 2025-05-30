@@ -50,9 +50,17 @@ h1, h2, h3, .section-title {
     padding: 13px 18px !important;
     font-weight: 900 !important;
     font-size: 1.35em !important;
-    text-shadow: 0 2px 8px #fff, 0 1px 8px #aab7cf !important;
     box-shadow: 0 2px 10px rgba(60,70,90,0.10);
     margin-bottom: 18px !important;
+}
+
+/* --- 라디오 선택 원 진한 외곽선 추가 --- */
+[data-baseweb="radio"] label > span:first-child {
+    border: 2.5px solid #2350aa !important;
+    box-shadow: 0 0 5px #e2ecff;
+}
+[data-baseweb="radio"] label > span:first-child > div {
+    background: #2350aa !important;
 }
 
 /* 3. 모든 라벨(라디오/토글/체크/셀렉트/텍스트라벨 등) */
@@ -61,7 +69,6 @@ h1, h2, h3, .section-title {
     color: #2350aa !important;         /* 선명한 진파랑 */
     font-weight: 800 !important;
     font-size: 1.10em !important;
-    text-shadow: 0 2px 9px #fff, 0 1px 7px #e2ecff !important;
     background: none !important;
     border: none !important;
     box-shadow: none !important;
@@ -83,7 +90,6 @@ h1, h2, h3, .section-title {
     color: #2274ad !important;
     font-weight: 900 !important;
     font-size: 1.09em !important;
-    text-shadow: 0 1px 7px #e2ecff !important;
     background: none !important;
 }
 
@@ -191,7 +197,6 @@ elif mode == "부분 암송 테스트":
                 border-radius: 7px;
                 margin-bottom: 6px;
                 box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-                text-shadow: 0 2px 10px #fff, 0 1px 6px #aaa;">
                 {i}절
             </span>
             """,
