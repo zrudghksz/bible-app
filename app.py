@@ -265,20 +265,21 @@ elif mode == "전체 암송 테스트":
 
     st.markdown("""
         <style>
+        /* ✅ placeholder (입력 칸 힌트 텍스트 - 흐리게, 작게) */
         textarea::placeholder {
-            color: #999 !important;
-            font-size: 0.97em !important;
+            color: rgba(0,0,0,0.4) !important;
+            font-size: 1.05em !important;
             font-weight: 400 !important;
-            opacity: 0.85 !important;
+            font-family: 'Segoe UI', sans-serif !important;
         }
-        .result-tag {
-            font-weight: bold;
-            margin-left: 6px;
-            color: green;
-            font-size: 15px;
-        }
-        .result-tag.wrong {
-            color: red;
+
+        /* ✅ 정답 보기 시 텍스트 (선명하게, 진하게) */
+        textarea:disabled {
+            color: #111 !important;
+            font-size: 1.15em !important;
+            font-weight: 700 !important;
+            line-height: 1.8em !important;
+            font-family: 'Segoe UI', sans-serif !important;
         }
         </style>
     """, unsafe_allow_html=True)
