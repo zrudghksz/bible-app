@@ -168,19 +168,20 @@ elif mode == "부분 암송 테스트":
     start_label = st.selectbox("", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
     start_num = int(start_label.replace("절", ""))
 
+    # 토글은 반드시 각기 다른 label 또는 key를 사용해야 함 (label_visibility="collapsed" 가능)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
             "<span style='color:#fff; font-weight:800; font-size:1.13em;'>전체 정답 보기</span>",
             unsafe_allow_html=True
         )
-        show_answer = st.toggle("", value=False)
+        show_answer = st.toggle("show_answer_toggle", value=False, label_visibility="collapsed")
     with col2:
         st.markdown(
             "<span style='color:#fff; font-weight:800; font-size:1.13em;'>결과 보기</span>",
             unsafe_allow_html=True
         )
-        check_result = st.toggle("", value=False)
+        check_result = st.toggle("check_result_toggle", value=False, label_visibility="collapsed")
 
     user_inputs = []
     correctness = []
