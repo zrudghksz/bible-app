@@ -159,7 +159,6 @@ elif mode == "전체 듣기":
 
 elif mode == "부분 암송 테스트":
     st.subheader("🧠 부분 암송 테스트 (5절씩)")
-
     st.markdown(
         "<span style='color:#fff; font-weight:800; font-size:1.13em; display:block; margin-bottom:13px;'>📝 시작 절을 선택하세요.</span>",
         unsafe_allow_html=True
@@ -186,7 +185,6 @@ elif mode == "부분 암송 테스트":
         correct_text = verse_texts[verse_index]
         key = f"input_{i}"
 
-        # --- 절 번호 라벨 (진하게) ---
         st.markdown(
             f"""
             <span style="
@@ -205,13 +203,11 @@ elif mode == "부분 암송 테스트":
         )
 
         if show_answer:
-            # 정답만 박스에 진하게!
             st.markdown(
                 f"<div class='markdown-highlight' style='margin-bottom:10px; color:#193e73; font-weight:900; font-size:1.11em;'>{correct_text}</div>",
                 unsafe_allow_html=True
             )
         else:
-            # 입력값(유지) 입력창
             input_text = st.text_area(
                 "",
                 value=st.session_state.get(key, ""),
@@ -219,11 +215,9 @@ elif mode == "부분 암송 테스트":
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
-            st.session_state[key] = input_text
+            # 절대로 st.session_state[key] = input_text 하지 마세요!
 
-            # 결과보기 ON 시에만 오답/정답 표시
             if check_result:
-                # 빈칸/오답/정답 판정
                 if input_text.strip() == "":
                     st.markdown(
                         f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
