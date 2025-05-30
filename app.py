@@ -162,7 +162,6 @@ elif mode == "전체 듣기":
 elif mode == "부분 암송 테스트":
     st.subheader("🧠 부분 암송 테스트 (5절씩)")
 
-    # 안내 문구만 별도 표기 (selectbox는 영어 라벨)
     st.markdown("📝 시작 절을 선택하세요.")
     start_label = st.selectbox(
         label="", 
@@ -171,19 +170,44 @@ elif mode == "부분 암송 테스트":
     )
     start_num = int(start_label.replace("절", ""))
 
-    # 정답/결과 토글
     col1, col2 = st.columns(2)
     with col1:
         show_answer = st.toggle("정답 보기", value=False, key="partial_show_answer")
     with col2:
         check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
 
+    st.markdown("""
+        <style>
+        textarea::placeholder {
+            color: black !important;
+            opacity: 1 !important;
+        }
+        .result-tag {
+            font-weight: bold;
+            margin-left: 6px;
+            color: green;
+            font-size: 15px;
+        }
+        .result-tag.wrong {
+            color: red;
+        }
+        .readonly-box textarea {
+            background: rgba(255,255,255,0.94) !important;
+            color: #14428c !important;
+            font-size: 1.15em !important;
+            font-weight: 400 !important;
+            border-radius: 7px !important;
+            padding: 8px 13px !important;
+            box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"partial_{i}"
 
-        # 절 번호 라벨 박스 (전체 테스트와 통일)
         st.markdown(
             f"""
             <span style="
@@ -202,20 +226,6 @@ elif mode == "부분 암송 테스트":
         )
 
         if show_answer:
-            st.markdown("""
-                <style>
-                .readonly-box textarea {
-                    background: rgba(255,255,255,0.94) !important;
-                    color: #14428c !important;
-                    font-size: 1.15em !important;
-                    font-weight: 400 !important;
-                    border-radius: 7px !important;
-                    padding: 8px 13px !important;
-                    box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-                }
-                </style>
-            """, unsafe_allow_html=True)
-
             with st.container():
                 st.markdown('<div class="readonly-box">', unsafe_allow_html=True)
                 st.text_area(
@@ -226,7 +236,6 @@ elif mode == "부분 암송 테스트":
                     disabled=True
                 )
                 st.markdown('</div>', unsafe_allow_html=True)
-
         else:
             input_text = st.text_area(
                 "",
@@ -237,18 +246,13 @@ elif mode == "부분 암송 테스트":
             )
 
             if check_result:
-                if input_text.strip() == "":
-                    st.markdown(
-                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
-                        unsafe_allow_html=True
-                    )
-                else:
-                    is_correct = compare_texts(correct_text, input_text)
-                    st.markdown(
-                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
-                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                        unsafe_allow_html=True
-                    )
+                is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
+                st.markdown(
+                    f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
+                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                    unsafe_allow_html=True
+                )
+
 
 
 
