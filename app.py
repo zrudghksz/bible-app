@@ -333,7 +333,7 @@ elif mode == "전체 암송 테스트":
                 label_visibility="collapsed"
             )
 
-        user_inputs.append(input_text)  # ✅ 반드시 포함
+        user_inputs.append(input_text)
 
         # 결과 평가 출력 (기존 그대로 유지)
         if show_result:
@@ -343,20 +343,3 @@ elif mode == "전체 암송 테스트":
                 f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                 unsafe_allow_html=True
             )
-        input_text = st.text_area(
-                    "",
-                    value=st.session_state[key],
-                    key=key,
-                    placeholder=correct_text if show_answer else "",
-                    label_visibility="collapsed"
-                )
-                user_inputs.append(input_text)
-
-                if show_result:
-                    is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
-                    st.markdown(
-                        f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
-                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                        unsafe_allow_html=True
-                    )
-        
