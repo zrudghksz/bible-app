@@ -139,6 +139,10 @@ body, .stApp, .stMarkdown {
     font-weight: 500 !important;
     font-size: 1.04em !important;
 }
+.stRadio ul {
+    list-style-type: none !important;
+    padding-left: 0 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
