@@ -208,8 +208,8 @@ elif mode == "부분 암송 테스트":
                     background: rgba(255,255,255,0.94); 
                     color: #14428c;
                     border-radius: 7px;
-                    font-size: 1.15em;
-                    font-weight: 800;
+                    font-size: 1.00em;
+                    font-weight: 400;
                     padding: 4px 13px 4px 10px;
                     margin-bottom: 12px;
                     box-shadow: 0 2px 12px rgba(70,70,120,0.13);">
