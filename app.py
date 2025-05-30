@@ -285,7 +285,7 @@ elif mode == "전체 암송 테스트":
                 display: inline-block;
                 background: rgba(255,255,255,0.94);
                 color: #14428c;
-                font-size: 1.5em;
+                font-size: 3.0em;
                 font-weight: 800;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
