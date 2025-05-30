@@ -258,7 +258,7 @@ elif mode == "전체 암송 테스트":
             color: black !important;
             opacity: 1 !important;
             font-size: 1.15em !important;
-            font-weight: 600 !important;
+            font-weight: 400 !important;
         }
         .result-tag {
             font-weight: bold;
