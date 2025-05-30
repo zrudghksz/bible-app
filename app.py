@@ -162,6 +162,27 @@ elif mode == "전체 듣기":
 elif mode == "부분 암송 테스트":
     st.subheader("🧠 부분 암송 테스트")
 
+    # ✅ 정답 보기 CSS (항상 삽입되도록 수정)
+    st.markdown("""
+        <style>
+        .readonly-box {
+            display: block;
+            background: rgba(255,255,255,0.95);
+            color: #111;
+            font-size: 1.15em;
+            font-weight: 400;
+            font-family: 'Segoe UI', sans-serif;
+            border-radius: 7px;
+            padding: 10px 14px;
+            box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+            line-height: 1.9em;
+            white-space: pre-wrap;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     st.markdown("📝 시작 절을 선택하세요.")
     start_label = st.selectbox(
         label="", 
@@ -176,28 +197,6 @@ elif mode == "부분 암송 테스트":
         show_answer = st.toggle("전체 정답 보기", value=False, key="partial_show_answer")
     with col2:
         check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
-
-    # ✅ 정답 보기 CSS (진하게 + 줄 간격 넉넉하게 + 박스 고정)
-    if show_answer:
-        st.markdown("""
-            <style>
-            .readonly-box {
-                display: block;
-                background: rgba(255,255,255,0.95);
-                color: #111;
-                font-size: 1.15em;
-                font-weight: 400;
-                font-family: 'Segoe UI', sans-serif;
-                border-radius: 7px;
-                padding: 10px 14px;
-                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-                line-height: 1.9em;
-                white-space: pre-wrap;
-                width: 100%;
-                margin-bottom: 12px;
-            }
-            </style>
-        """, unsafe_allow_html=True)
 
     # 반복 출력 (5절)
     for i in range(start_num, start_num + 5):
@@ -255,6 +254,7 @@ elif mode == "부분 암송 테스트":
                     f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                     unsafe_allow_html=True
                 )
+
 
 
 
