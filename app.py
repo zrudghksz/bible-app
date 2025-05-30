@@ -157,65 +157,82 @@ elif mode == "전체 듣기":
     else:
         st.error("full_audio.wav 파일을 audio 폴더 안에 넣어주세요.")
 
-for idx, i in enumerate(range(start_num, start_num + 5)):
-    verse_index = i - 1
-    correct_text = verse_texts[verse_index]
-    key = f"partial_{i}"
 
-    # --- 절 번호 박스 (전체 암송과 동일)
-    st.markdown(
-        f"""
-        <span style="
-            display: inline-block;
-            background: rgba(255,255,255,0.94);
-            color: #14428c;
-            font-size: 1.15em;
-            font-weight: 800;
-            padding: 4px 13px 4px 10px;
-            border-radius: 7px;
-            margin-bottom: 6px;
-            box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-        ">{i}절</span>
-        """,
-        unsafe_allow_html=True
-    )
 
-    # --- 입력창: 정답 보기면 정답, 아니면 입력값
-    if show_answer:
-        input_text = correct_text
+elif mode == "부분 암송 테스트":
+    st.subheader("🧠 부분 암송 테스트 (5절씩)")
+    start_label = st.selectbox("📝 시작 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
+    start_num = int(start_label.replace("절", ""))
+
+    col1, col2 = st.columns(2)
+    with col1:
+        show_answer = st.toggle("전체 정답 보기", value=False, key="partial_show_answer")
+    with col2:
+        check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
+
+    for i in range(start_num, start_num + 5):
+        verse_index = i - 1
+        correct_text = verse_texts[verse_index]
+        key = f"input_partial_{i}"
+
         st.markdown(
             f"""
-            <div style="
-                background: #fff; 
-                color: #34425a; 
+            <span style="
+                display: inline-block;
+                background: rgba(255,255,255,0.94);
+                color: #14428c;
+                font-size: 1.15em;
+                font-weight: 800;
+                padding: 4px 13px 4px 10px;
                 border-radius: 7px;
-                padding: 9px 18px; 
-                font-size: 1.10em;
-                font-weight: 600;
-                border: 2px solid #b3c9ee;
-                margin-bottom: 10px;">
-            {correct_text}
-            </div>
-            """, unsafe_allow_html=True
-        )
-    else:
-        input_text = st.text_area(
-            "",
-            value=st.session_state.get(key, ""),
-            key=key,
-            placeholder="직접 입력해 보세요.",
-            label_visibility="collapsed"
-        )
-
-    # --- 결과 보기: 정답 보기와 무관하게 항상 평가 (원한다면!)
-    if check_result:
-        # compare_texts(띄어쓰기 무시, 95% 이상 정답)
-        is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
-        st.markdown(
-            f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
-            f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                margin-bottom: 6px;
+                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+            ">{i}절</span>
+            """,
             unsafe_allow_html=True
         )
+
+        # 정답 보기 켜진 경우
+        if show_answer:
+            st.markdown(
+                f"""
+                <div style="
+                    background: #fff;
+                    color: #34425a;
+                    border-radius: 7px;
+                    padding: 9px 18px;
+                    font-size: 1.10em;
+                    font-weight: 600;
+                    border: 2px solid #b3c9ee;
+                    margin-bottom: 10px;">
+                {correct_text}
+                </div>
+                """, unsafe_allow_html=True
+            )
+            # 입력창을 덮어쓰지 않음(세션 유지 X)
+        else:
+            input_text = st.text_area(
+                "",
+                value=st.session_state.get(key, ""),
+                key=key,
+                placeholder="직접 입력해 보세요.",
+                label_visibility="collapsed"
+            )
+
+            # 결과 보기
+            if check_result:
+                if input_text.strip() == "":
+                    st.markdown(
+                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
+                        unsafe_allow_html=True
+                    )
+                else:
+                    is_correct = compare_texts(correct_text, input_text)
+                    st.markdown(
+                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
+                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                        unsafe_allow_html=True
+                    )
 
 
 
