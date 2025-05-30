@@ -171,8 +171,20 @@ elif mode == "부분 암송 테스트":
         if st.button("정답 한 줄씩 공개"):
             st.session_state["reveal_idx"] += 1
 
-   elif mode == "부분 암송 테스트":
-    ...
+elif mode == "부분 암송 테스트":
+    st.subheader("🧠 부분 암송 테스트 (5절)")
+    start_label = st.selectbox("📝 시작 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
+    start_num = int(start_label.replace("절", ""))
+
+    col1, col2 = st.columns(2)
+    with col1:
+        show_answer = st.toggle("전체 정답 보기", value=False)
+    with col2:
+        check_result = st.toggle("결과 보기", value=False)
+
+    user_inputs = []
+    correctness = []
+
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
@@ -180,10 +192,10 @@ elif mode == "부분 암송 테스트":
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        # ★★★ 이 부분에 각 절마다 정답 보기 체크박스를 추가 ★★★
+        # ★★★ 각 절마다 정답보기 체크박스 (중복 금지) ★★★
         show_this_answer = st.checkbox(f"{i}절 정답보기", key=f"show_answer_{i}")
 
-        # 입력창 표시 (placeholder 활용)
+        # 입력창 표시 (정답보기 토글, 체크박스 둘 다 적용)
         input_text = st.text_area(
             f"{i}절",
             value=st.session_state[key],
@@ -192,7 +204,8 @@ elif mode == "부분 암송 테스트":
             label_visibility="visible"
         )
 
-        # 결과 표시 기존 그대로
+        user_inputs.append(input_text)
+
         if check_result:
             is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
             st.markdown(
