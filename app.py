@@ -34,7 +34,6 @@ def compare_texts(correct, user):
 # 문자 및 상자 ---
 st.markdown("""
 <style>
-/* 1. 전체 앱 배경 */
 .stApp {
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
     background-size: cover;
@@ -42,20 +41,20 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* 2. 제목/소제목/타이틀 */
+/* 제목/소제목/타이틀 하늘색 박스 */
 h1, h2, h3, .section-title {
-    color: #fff !important;
-    background: linear-gradient(92deg, #2561b5 70%, #2350aa 100%) !important;
+    color: #193e73 !important;
+    background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
     border-radius: 10px !important;
     padding: 13px 18px !important;
     font-weight: 900 !important;
     font-size: 1.35em !important;
     box-shadow: 0 2px 10px rgba(60,70,90,0.10);
     margin-bottom: 18px !important;
-    text-shadow: 0 2px 8px #1356a7, 0 1px 7px #154e95 !important;
+    text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
 }
 
-/* 3. 라디오(메뉴 선택) 원 확실히 진하게 */
+/* 라디오(메뉴 선택) 원 확실히 진하게 */
 [data-baseweb="radio"] label > span:first-child {
     border: 3px solid #103477 !important;
     background: #fff !important;
@@ -80,7 +79,7 @@ h1, h2, h3, .section-title {
     color: #22336b !important;
 }
 
-/* 4. 라벨(모든 라디오/토글/체크/셀렉트/텍스트라벨 등) */
+/* 라벨(모든 라디오/토글/체크/셀렉트/텍스트라벨 등) */
 .stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label,
 .stTextInput > label, .stTextArea > label, .st-b8, .css-1c7y2kd {
     color: #2350aa !important;
@@ -92,7 +91,7 @@ h1, h2, h3, .section-title {
     padding: 0 !important;
 }
 
-/* 5. 모드 선택 라디오 전체 박스 */
+/* 모드 선택 라디오 전체 박스 */
 .stRadio {
     background: linear-gradient(92deg, #e3f2fd 60%, #f5faff 100%) !important;
     border-radius: 12px !important;
@@ -102,7 +101,7 @@ h1, h2, h3, .section-title {
     margin-bottom: 13px;
 }
 
-/* 6. 체크박스/토글 라벨 진한 파랑 */
+/* 체크박스/토글 라벨 진한 파랑 */
 .stCheckbox label, .stToggle label {
     color: #2274ad !important;
     font-weight: 900 !important;
@@ -110,13 +109,13 @@ h1, h2, h3, .section-title {
     background: none !important;
 }
 
-/* 7. 드롭다운 옵션 */
+/* 드롭다운 옵션 */
 [data-baseweb="select"] > div {
     color: #2350aa !important;
     font-weight: 800 !important;
 }
 
-/* 8. 안내/강조문 */
+/* 안내/강조문 */
 .markdown-highlight {
     background: rgba(255,255,255,0.95);
     border-radius: 8px;
@@ -128,7 +127,7 @@ h1, h2, h3, .section-title {
     box-shadow: 0 2px 10px rgba(160,170,210,0.13);
 }
 
-/* 9. 전체 기본 폰트 */
+/* 전체 기본 폰트 */
 body, .stApp, .stMarkdown {
     color: #23272f !important;
     font-weight: 500 !important;
