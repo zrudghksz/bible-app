@@ -32,6 +32,15 @@ def compare_texts(correct, user):
 
 st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centered")
 
+st.markdown(
+    f"<div style='display:inline-block;background:rgba(255,255,255,0.96);"
+    "color:#133688;font-size:1.13em;font-weight:900;padding:3px 12px 2px 10px;"
+    "border-radius:7px;margin-bottom:7px;box-shadow:0 2px 9px rgba(70,70,120,0.10);"
+    "text-shadow:0 2px 9px #fff,0 1px 8px #ccc;'>"
+    f"{i}절</div>",
+    unsafe_allow_html=True,
+)
+
 st.markdown("""
 <style>
 /* 1. 전체 앱 배경: 기존 사진 유지 */
