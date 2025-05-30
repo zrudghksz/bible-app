@@ -82,7 +82,7 @@ h1, h2, h3, .section-title {
 /* 라벨(모든 라디오/토글/체크/셀렉트/텍스트라벨 등) */
 .stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label,
 .stTextInput > label, .stTextArea > label, .st-b8, .css-1c7y2kd {
-    color: #2350aa !important;
+    color: #fff !important;
     font-weight: 800 !important;
     font-size: 1.10em !important;
     background: none !important;
