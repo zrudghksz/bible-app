@@ -171,7 +171,7 @@ elif mode == "부분 암송 테스트":
     user_inputs = []
     correctness = []
 
-   for i in range(start_num, start_num + 5):
+    for i in range(start_num, start_num + 5):
     verse_index = i - 1
     correct_text = verse_texts[verse_index]
     key = f"input_{i}"
