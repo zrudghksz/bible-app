@@ -177,7 +177,7 @@ elif mode == "부분 암송 테스트":
     with col2:
         check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
 
-    # --- 정답 보기 전용 스타일(CSS)
+    # 정답 보기 시 적용할 CSS
     if show_answer:
         st.markdown("""
             <style>
@@ -199,6 +199,7 @@ elif mode == "부분 암송 테스트":
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"partial_{i}"
+        typed_input = st.session_state.get(key, "").strip()
 
         # 절 번호 라벨
         st.markdown(
@@ -219,7 +220,6 @@ elif mode == "부분 암송 테스트":
         )
 
         if show_answer:
-            # 정답 텍스트 박스
             with st.container():
                 st.markdown('<div class="readonly-box">', unsafe_allow_html=True)
                 st.text_area(
@@ -230,42 +230,31 @@ elif mode == "부분 암송 테스트":
                     disabled=True
                 )
                 st.markdown('</div>', unsafe_allow_html=True)
-
         else:
-            # 사용자 입력창
-            input_text = st.text_area(
+            st.text_area(
                 "",
-                value=st.session_state.get(key, ""),
+                value=typed_input,
                 key=key,
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
 
-            # 결과 보기 (정답 보기와 동시에 작동 X)
-            if check_result and not show_answer:
-                if input_text.strip() == "":
-                    st.markdown(
-                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
-                        unsafe_allow_html=True
-                    )
-                else:
-                    is_correct = compare_texts(correct_text, input_text)
-                    st.markdown(
-                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
-                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                        unsafe_allow_html=True
-                    )
-      
-            elif check_result and show_answer:
-                    # 정답 보기 상태일 때에도 입력값이 존재하면 결과 평가
-                    typed = st.session_state.get(key, "").strip()
-                    if typed != "":
-                        is_correct = compare_texts(correct_text, typed)
-                        st.markdown(
-                            f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
-                            f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                            unsafe_allow_html=True
-                        )        
+        # ✅ 결과 보기 (show_answer 여부와 무관하게 평가 표시)
+        if check_result:
+            if typed_input == "":
+                st.markdown(
+                    f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
+                    unsafe_allow_html=True
+                )
+            else:
+                is_correct = compare_texts(correct_text, typed_input)
+                st.markdown(
+                    f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
+                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                    unsafe_allow_html=True
+                )
+
+
 
 
 elif mode == "전체 암송 테스트":
