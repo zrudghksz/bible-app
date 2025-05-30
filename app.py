@@ -31,35 +31,6 @@ def compare_texts(correct, user):
     return ratio >= 0.95
 
 st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centered")
-st.markdown("""
-    <style>
-    .stApp {
-        background-image: url("...");  /* 배경이미지는 기존 url 유지 */
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
-    .block-container {
-        padding-top: 5px !important;
-        padding-bottom: 0px !important;
-        padding-left: 3vw !important;
-        padding-right: 3vw !important;
-        max-width: 100vw !important;
-    }
-    .stTextArea textarea, .stTextInput input {
-        font-size: 20px !important;
-        min-height: 60px !important;
-        background: rgba(255,255,255,0.97) !important;
-        border-radius: 16px !important;
-    }
-    .stRadio, .stToggle, .stSelectbox {
-        background: rgba(255,255,255,0.94) !important;
-        border-radius: 12px !important;
-    }
-    h1 { font-size: 27px !important; margin-bottom: 5px !important; }
-    </style>
-""", unsafe_allow_html=True)
-
 
 # ✅ [복구] 전체 스타일을 한 번에!
 st.markdown("""
