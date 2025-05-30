@@ -80,6 +80,58 @@ h2, h3, .section-title {
     padding: 0 !important;
 }
 
+/* ======= 라디오 선택 영역(모드) 강조(추가 부분) ======= */
+[data-baseweb="radio"] > div > div {
+    margin-bottom: 7px;
+}
+[data-baseweb="radio"] label {
+    font-size: 1.18em !important;
+    font-weight: 900 !important;
+    color: #193e73 !important;
+    border-radius: 12px !important;
+    padding: 6px 18px !important;
+    transition: background 0.2s, box-shadow 0.2s;
+    background: #f4f8ff !important;
+    margin-bottom: 7px !important;
+    box-shadow: 0 1.5px 8px #b7d2f0;
+    border: 2.5px solid #f4f8ff;
+    cursor: pointer;
+}
+[data-baseweb="radio"] label:hover {
+    background: #e3eeff !important;
+    border: 2.5px solid #5795ef !important;
+    color: #174d94 !important;
+}
+[data-baseweb="radio"] input:checked + div {
+    background: #d1e6fc !important;
+    border: 2.5px solid #3977d5 !important;
+    color: #163668 !important;
+    box-shadow: 0 2px 12px #85b8ff;
+}
+[data-baseweb="radio"] input:checked + div label {
+    color: #0d2550 !important;
+    font-weight: 900 !important;
+}
+[data-baseweb="radio"] label > span:first-child {
+    border: 3px solid #193e73 !important;
+    background: #fff !important;
+    border-radius: 8px !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-right: 13px !important;
+}
+[data-baseweb="radio"] label > span:first-child > div {
+    background: #4a88de !important;
+    width: 13px !important;
+    height: 13px !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 7px #a5d2ff;
+}
+/* ============================================== */
+
 /* ======= 이하 기존 스타일(원, 박스 등) 그대로 유지 ======= */
 [data-baseweb="radio"] label > span:first-child {
     border: 3px solid #193e73 !important;
@@ -157,6 +209,7 @@ body, .stApp, .stMarkdown {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # --- 앱 제목  ---
