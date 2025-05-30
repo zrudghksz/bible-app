@@ -208,7 +208,7 @@ elif mode == "부분 암송 테스트":
                     background: rgba(255,255,255,0.94); 
                     color: #14428c;
                     border-radius: 7px;
-                    font-size: 1.30em;
+                    font-size: 1.20em;
                     font-weight: 400;
                     padding: 4px 13px 4px 10px;
                     margin-bottom: 12px;
@@ -257,12 +257,14 @@ elif mode == "전체 암송 테스트":
         textarea::placeholder {
             color: black !important;
             opacity: 1 !important;
+            font-size: 1.15em !important;
+            font-weight: 600 !important;
         }
         .result-tag {
             font-weight: bold;
             margin-left: 6px;
             color: green;
-            font-size: 30px;
+            font-size: 15px;
         }
         .result-tag.wrong {
             color: red;
