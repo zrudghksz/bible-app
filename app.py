@@ -34,89 +34,69 @@ st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centere
 
 # --- 문자 스타일 ---
 st.markdown("""
-    <style>
-    textarea::placeholder {
-        color: black !important;
-        opacity: 1 !important;
-    }
-    /* 모든 입력/선택 박스 공통 스타일 */
-    .stTextArea textarea, .stTextInput input, .stSelectbox div[data-baseweb="select"], .stRadio, .stToggle {
-        background: rgba(255,255,255,0.93) !important;
-        border-radius: 10px !important;
-        box-shadow: 0 4px 16px rgba(40,40,40,0.10);
-        font-size: 17px;
-        color: #222 !important;
-        font-weight: 500;
-    }
-    /* 드롭다운 select 박스 배경 */
-    [data-baseweb="select"] > div {
-        background: rgba(255,255,255,0.95) !important;
-    }
-    /* 라디오/토글 컨테이너 가독성 보정 */
-    .stRadio, .stToggle {
-        background: rgba(255,255,255,0.88) !important;
-        border-radius: 10px !important;
-        margin-bottom: 10px;
-        padding: 4px 12px 2px 12px;
-    }
-    .stApp {
-        background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
-    .stButton > button {
-        background-color: #4a7ebb;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 10px 20px;
-        font-weight: bold;
-        font-size: 16px;
-    }
-    .stButton > button:hover {
-        background-color: #3a6ea5;
-    }
-    .result-table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-top: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    .result-table th {
-        background-color: #4a7ebb;
-        color: white;
-        padding: 12px;
-        font-size: 16px;
-    }
-    .result-table td {
-        padding: 12px;
-        text-align: center;
-        font-size: 15px;
-        background-color: #f9f9f9;
-    }
-    .result-tag {
-       font-weight: bold;
-        margin-left: 8px;
-        color: green;
-    }
-    .result-tag.wrong {
-        color: red;
-    }
-    .verse-highlight {
-        background-color: rgba(255, 255, 255, 0.85);
-        color: #222;
-        padding: 12px 18px;
-        border-radius: 10px;
-        text-align: center;
-        font-size: 18px;
-        margin-top: 10px;
-        font-weight: bold;
-    }
-    </style>
+<style>
+/* 제목(가장 큰 글씨만) 강조: 너무 크지 않게! */
+h1 {
+    color: #203a5e !important;
+    background: rgba(255,255,255,0.85);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 18px !important;
+    box-shadow: 0 1px 8px rgba(80,90,100,0.08);
+}
+
+/* 소제목(섹션 제목 등)은 살짝만 강조 */
+h2, h3 {
+    color: #29519d !important;
+    background: rgba(255,255,255,0.80);
+    border-radius: 7px;
+    padding: 7px 13px 7px 12px;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 14px !important;
+}
+
+/* 전체 폰트: 더 진하게, 약간 어두운 색 */
+body, .stApp, .stMarkdown, .stRadio label, .stToggle label, .stSelectbox label, label, .st-b8, .css-1c7y2kd {
+    color: #23272f !important;
+    font-weight: 500 !important;
+    font-size: 1.04em !important;
+}
+
+/* 안내/강조문: 진한 글씨+연한 흰 배경 */
+.markdown-highlight {
+    background: rgba(255,255,255,0.90);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #16366a;
+    font-size: 1.07em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 7px rgba(180,180,200,0.09);
+}
+
+/* 입력창, 셀렉트, 라디오 등은 기본 Streamlit 스타일 최대한 유지 */
+.stTextArea textarea, .stTextInput input, .stSelectbox div[data-baseweb="select"] {
+    background: rgba(255,255,255,0.96) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 3px 10px rgba(60,60,70,0.08);
+    font-size: 1em !important;
+    color: #23272f !important;
+    font-weight: 500 !important;
+}
+
+/* 앱 배경은 기존 사진 유지 */
+.stApp {
+    background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+</style>
 """, unsafe_allow_html=True)
+
 
 
 # --- 앱 제목  ---
