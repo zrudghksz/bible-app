@@ -172,29 +172,29 @@ elif mode == "부분 암송 테스트":
     correctness = []
 
     for i in range(start_num, start_num + 5):
-    verse_index = i - 1
-    correct_text = verse_texts[verse_index]
-    key = f"input_{i}"
-    if key not in st.session_state:
-        st.session_state[key] = ""
+        verse_index = i - 1
+        correct_text = verse_texts[verse_index]
+        key = f"input_{i}"
+        if key not in st.session_state:
+            st.session_state[key] = ""
 
-    # 각 절별로 정답보기 체크박스
-    show_this_answer = st.checkbox(f"{i}절 정답보기", key=f"show_answer_{i}")
+        # 각 절별로 정답보기 체크박스
+        show_this_answer = st.checkbox(f"{i}절 정답보기", key=f"show_answer_{i}")
 
-    # --- 개선(정답을 value에 넣어 진하게 보임) ---
-    # (입력값 대신 정답을 표시, 전체/절별 정답보기일 때만)
-    if show_answer or show_this_answer:
-        display_value = correct_text
-    else:
-        display_value = st.session_state[key]
+        # --- 개선(정답을 value에 넣어 진하게 보임) ---
+        # (입력값 대신 정답을 표시, 전체/절별 정답보기일 때만)
+        if show_answer or show_this_answer:
+            display_value = correct_text
+        else:
+            display_value = st.session_state[key]
 
-    input_text = st.text_area(
-        f"{i}절",
-        value=display_value,
-        key=key,
-        placeholder="",   # placeholder 사용 안함!
-        label_visibility="visible"
-    )
+        input_text = st.text_area(
+            f"{i}절",
+            value=display_value,
+            key=key,
+            placeholder="",   # placeholder 사용 안함!
+            label_visibility="visible"
+        )
 
         user_inputs.append(input_text)
 
