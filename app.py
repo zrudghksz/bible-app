@@ -157,58 +157,65 @@ elif mode == "전체 듣기":
     else:
         st.error("full_audio.wav 파일을 audio 폴더 안에 넣어주세요.")
 
-elif mode == "부분 암송 테스트":
-    st.subheader("🧠 부분 암송 테스트 (5절씩)")
-    start_label = st.selectbox("📝 시작 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
-    start_num = int(start_label.replace("절", ""))
+for idx, i in enumerate(range(start_num, start_num + 5)):
+    verse_index = i - 1
+    correct_text = verse_texts[verse_index]
+    key = f"partial_{i}"
 
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        show_answer = st.toggle("정답 보기", value=False)
-    with col2:
-        show_result = st.toggle("결과 보기", value=False)
+    # --- 절 번호 박스 (전체 암송과 동일)
+    st.markdown(
+        f"""
+        <span style="
+            display: inline-block;
+            background: rgba(255,255,255,0.94);
+            color: #14428c;
+            font-size: 1.15em;
+            font-weight: 800;
+            padding: 4px 13px 4px 10px;
+            border-radius: 7px;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+        ">{i}절</span>
+        """,
+        unsafe_allow_html=True
+    )
 
-    for idx, i in enumerate(range(start_num, start_num + 5)):
-        verse_index = i - 1
-        correct_text = verse_texts[verse_index]
-        key = f"partial_{i}"
-
-        # --- 절 번호 박스 (전체 암송과 동일)
+    # --- 입력창: 정답 보기면 정답, 아니면 입력값
+    if show_answer:
+        input_text = correct_text
         st.markdown(
             f"""
-            <span style="
-                display: inline-block;
-                background: rgba(255,255,255,0.94);
-                color: #14428c;
-                font-size: 1.15em;
-                font-weight: 800;
-                padding: 4px 13px 4px 10px;
+            <div style="
+                background: #fff; 
+                color: #34425a; 
                 border-radius: 7px;
-                margin-bottom: 6px;
-                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-            ">{i}절</span>
-            """,
-            unsafe_allow_html=True
+                padding: 9px 18px; 
+                font-size: 1.10em;
+                font-weight: 600;
+                border: 2px solid #b3c9ee;
+                margin-bottom: 10px;">
+            {correct_text}
+            </div>
+            """, unsafe_allow_html=True
         )
-
-        # --- 입력창: 정답 보기면 정답, 아니면 입력값
+    else:
         input_text = st.text_area(
             "",
-            value=correct_text if show_answer else st.session_state.get(key, ""),
+            value=st.session_state.get(key, ""),
             key=key,
-            placeholder=correct_text if show_answer else "직접 입력해 보세요.",
+            placeholder="직접 입력해 보세요.",
             label_visibility="collapsed"
         )
 
-        # --- 결과 표시: 전체 암송과 동일하게(정답/오답)
-        if show_result:
-            if not show_answer:
-                is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
-                st.markdown(
-                    f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
-                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                    unsafe_allow_html=True
-                )
+    # --- 결과 보기: 정답 보기와 무관하게 항상 평가 (원한다면!)
+    if check_result:
+        # compare_texts(띄어쓰기 무시, 95% 이상 정답)
+        is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
+        st.markdown(
+            f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
+            f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+            unsafe_allow_html=True
+        )
 
 
 
