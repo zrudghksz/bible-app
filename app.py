@@ -157,25 +157,6 @@ elif mode == "부분 암송 테스트":
     start_label = st.selectbox("📝 시작 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
     start_num = int(start_label.replace("절", ""))
 
-    # --- 한 절씩 정답 공개 기능 ---
-    if "reveal_idx" not in st.session_state or st.session_state["reset_trigger"] != start_num:
-        st.session_state["reveal_idx"] = 0
-        st.session_state["reset_trigger"] = start_num
-
-    col1, col2, col3 = st.columns([1,1,1])
-    with col1:
-        show_answer = st.toggle("전체 정답 보기", value=False)
-    with col2:
-        check_result = st.toggle("결과 보기", value=False)
-    with col3:
-        if st.button("정답 한 줄씩 공개"):
-            st.session_state["reveal_idx"] += 1
-
-elif mode == "부분 암송 테스트":
-    st.subheader("🧠 부분 암송 테스트 (5절)")
-    start_label = st.selectbox("📝 시작 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
-    start_num = int(start_label.replace("절", ""))
-
     col1, col2 = st.columns(2)
     with col1:
         show_answer = st.toggle("전체 정답 보기", value=False)
@@ -192,10 +173,10 @@ elif mode == "부분 암송 테스트":
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        # ★★★ 각 절마다 정답보기 체크박스 (중복 금지) ★★★
+        # 각 절별로 정답보기 체크박스
         show_this_answer = st.checkbox(f"{i}절 정답보기", key=f"show_answer_{i}")
 
-        # 입력창 표시 (정답보기 토글, 체크박스 둘 다 적용)
+        # 입력창 (show_answer: 전체, show_this_answer: 해당절)
         input_text = st.text_area(
             f"{i}절",
             value=st.session_state[key],
