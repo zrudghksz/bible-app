@@ -89,6 +89,19 @@ html, body, .stApp {
     border: 2.5px solid #86b8ea !important;
     margin-bottom: 18px;
 }
+.markdown-highlight {
+    background: rgba(255,255,255,0.96);
+    border-radius: 8px;
+    padding: 10px 16px 9px 16px;
+    color: #193e73;
+    font-size: 1.13em;
+    font-weight: 700;
+    margin: 8px 0 13px 0;
+    box-shadow: 0 3px 16px rgba(60,80,120,0.10);
+    letter-spacing: 0.01em;
+    line-height: 1.7em;
+    transition: background 0.18s;
+}
 </style>
 """, unsafe_allow_html=True)
 
