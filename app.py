@@ -345,12 +345,24 @@ elif mode == "전체 암송 테스트":
 
         user_inputs.append(input_text)
 
-        # ✅ 결과 평가 (정답 보기 중일 땐 생략, 실제 입력값으로만 평가)
-        if show_result and not showing_answer:
+        # ✅ 결과 평가: 입력 없으면 오답 / 정답 보기 중일 땐 표시만
+        if show_result:
             user_input = st.session_state.get(key, "").strip()
-            is_correct = compare_texts(correct_text, user_input) if user_input else False
-            st.markdown(
-                f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
-                f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                unsafe_allow_html=True
-            )
+
+            if not user_input:
+                # 입력이 없으면 무조건 오답
+                st.markdown(
+                    f"<div class='result-tag wrong'>❌ 오답 (미입력)</div>",
+                    unsafe_allow_html=True
+                )
+            elif not showing_answer:
+                # 입력 있고 정답 보기 중이 아닐 때만 평가
+                is_correct = compare_texts(correct_text, user_input)
+                st.markdown(
+                    f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
+                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                    unsafe_allow_html=True
+                )
+            else:
+                # 정답 보기 중일 땐 결과 생략 (이미 보여주고 있으므로)
+                pass
