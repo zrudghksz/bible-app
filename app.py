@@ -280,7 +280,7 @@ elif mode == "전체 암송 테스트":
 
         /* textarea 내부 placeholder 스타일 (정답 표시용) */
         textarea::placeholder {
-            font-size: 14px !important;  /* 원하는 크기로 조절 */
+            font-size: 14px !important;  /* 정답 글자 크기 별도 조정 */
             color: black !important;
             opacity: 1 !important;
         }
@@ -298,7 +298,6 @@ elif mode == "전체 암송 테스트":
         </style>
     """, unsafe_allow_html=True)
 
-
     user_inputs = []
 
     for i in range(len(verse_texts)):
@@ -310,9 +309,6 @@ elif mode == "전체 암송 테스트":
         # 절 번호 라벨 박스 (부분 테스트와 통일)
         st.markdown(
             f"""<span class="verse-label">{i+1}절</span>""",
-            unsafe_allow_html=True
-        )
-            """,
             unsafe_allow_html=True
         )
 
