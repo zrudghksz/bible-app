@@ -322,14 +322,16 @@ elif mode == "전체 암송 테스트":
 
         # 입력창 생성
         if show_answer or show_individual_answer:
+            # ✅ 정답 보기 모드: 정답을 value에 직접 넣기 → 진하게 표시됨
             input_text = st.text_area(
                 "",
                 value=st.session_state[key],
                 key=key,
-                placeholder=correct_text,
-                label_visibility="collapsed"
+               placeholder="",
+               label_visibility="collapsed"
             )
         else:
+            # ✅ 정답 숨김 모드: 사용자 입력 유지, 안내 문구는 흐릿하게
             input_text = st.text_area(
                 "",
                 value=st.session_state[key],
