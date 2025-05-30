@@ -323,14 +323,12 @@ elif mode == "전체 암송 테스트":
         # 입력창 생성
         if show_answer or show_individual_answer:
             # ✅ 정답 보기 모드:
-            st.session_state[key] = correct_text
-
             input_text = st.text_area(
                 "",
-                value=st.session_state[key],
+                value=correct_text, 
                 key=key,
-               placeholder="",
-               label_visibility="collapsed"
+                placeholder="",
+                label_visibility="collapsed"
             )
         else:
             # ✅ 정답 숨김 모드: 사용자 입력 유지, 안내 문구는 흐릿하게
@@ -344,8 +342,8 @@ elif mode == "전체 암송 테스트":
 
         user_inputs.append(input_text)
 
-        # 결과 평가 출력 (기존 그대로 유지)
-        if show_result:
+        # ✅ 결과 평가 출력 (정답 보기 상태에서는 평가하지 않음)
+        if show_result and not (show_answer or show_individual_answer):
             is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
             st.markdown(
                 f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
