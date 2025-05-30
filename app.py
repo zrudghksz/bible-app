@@ -132,7 +132,6 @@ mode = st.radio("**🎧 모드를 선택하세요**", ["부분 듣기", "전체 
 
 # ✅ 듣기 처리 ---
 if mode == "부분 듣기":
-    # 기존 부분 듣기 코드...
     verse_num_label = st.selectbox("들을 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts)+1)])
     verse_num = int(verse_num_label.replace("절", ""))
     file_name = f"{verse_num:02d}_{verse_num}절.wav"
@@ -143,22 +142,6 @@ if mode == "부분 듣기":
         st.markdown(f"<div class='verse-highlight'><b>{verse_texts[verse_num-1]}</b></div>", unsafe_allow_html=True)
     else:
         st.error("오디오 파일을 찾을 수 없습니다.")
-
-    # ⭐⭐ 구간 듣기 반복 기능 추가 ⭐⭐
-    st.markdown("---")
-    st.markdown("### 📢 구간 반복 듣기")
-    start_verse = st.number_input("시작 절", min_value=1, max_value=len(verse_texts), value=1, key="repeat_start")
-    end_verse = st.number_input("끝 절", min_value=start_verse, max_value=len(verse_texts), value=start_verse, key="repeat_end")
-    repeat_count = st.number_input("반복 횟수", min_value=1, max_value=10, value=2, key="repeat_num")
-
-    if st.button("구간 반복 듣기"):
-        for _ in range(repeat_count):
-            for i in range(start_verse, end_verse+1):
-                rep_path = os.path.join(audio_dir, f"{i:02d}_{i}절.wav")
-                if os.path.exists(rep_path):
-                    st.audio(rep_path, format='audio/wav')
-                else:
-                    st.warning(f"{i}절 오디오가 없습니다.")
 
 
 elif mode == "전체 듣기":
@@ -181,26 +164,34 @@ elif mode == "부분 암송 테스트":
 
     col1, col2, col3 = st.columns([1,1,1])
     with col1:
-        show_answer = st.toggle("정답 보기", value=False)
+        show_answer = st.toggle("전체 정답 보기", value=False)
     with col2:
         check_result = st.toggle("결과 보기", value=False)
     with col3:
         if st.button("정답 한 줄씩 공개"):
             st.session_state["reveal_idx"] += 1
 
+   elif mode == "부분 암송 테스트":
+    ...
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"input_{i}"
         if key not in st.session_state:
             st.session_state[key] = ""
+
+        # ★★★ 이 부분에 각 절마다 정답 보기 체크박스를 추가 ★★★
+        show_this_answer = st.checkbox(f"{i}절 정답보기", key=f"show_answer_{i}")
+
+        # 입력창 표시 (placeholder 활용)
         input_text = st.text_area(
             f"{i}절",
             value=st.session_state[key],
             key=key,
-            placeholder=correct_text if show_answer or (i - start_num) < st.session_state["reveal_idx"] else "",
+            placeholder=correct_text if show_answer or show_this_answer else "",
             label_visibility="visible"
         )
+
         # 결과 표시 기존 그대로
         if check_result:
             is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
