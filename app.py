@@ -122,7 +122,7 @@ mode = st.radio("**🎧 모드를 선택하세요**", ["부분 듣기", "전체 
 # ✅ 듣기 처리 ---
 if mode == "부분 듣기":
     # 1. 안내문구(하얀색) 별도 출력
-   st.markdown(
+    st.markdown(
         "<span style='color:#fff; font-size:1.00em; font-weight:800; display:block; margin-bottom:15px;'>들을 절을 선택하세요.</span>",
         unsafe_allow_html=True
     )
