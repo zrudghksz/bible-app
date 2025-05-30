@@ -31,7 +31,6 @@ def compare_texts(correct, user):
     return ratio >= 0.95
 
 
-# 문자 및 상자 ---
 st.markdown("""
 <style>
 /* ================== 앱 배경 ================== */
@@ -42,9 +41,9 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* ================== 타이틀(h1)만 검정 ================== */
+/* ================== 타이틀(h1)만 진파랑 ================== */
 h1 {
-    color: #222 !important;
+    color: #193e73 !important;   /* ← 여기만 수정 */
     background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
     border-radius: 10px !important;
     padding: 13px 18px !important;
