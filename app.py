@@ -202,23 +202,31 @@ elif mode == "부분 암송 테스트":
         )
 
         if show_answer:
-            st.markdown(
-                f"""
-                <div style="
-                    display: inline-block;
-                    background: rgba(255,255,255,0.94); 
-                    color: #14428c;
-                    border-radius: 7px;
-                    font-size: 1.20em;
-                    font-weight: 400;
-                    padding: 4px 13px 4px 10px;
-                    margin-bottom: 12px;
-                    box-shadow: 0 2px 12px rgba(70,70,120,0.13);">
-                {correct_text}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+            st.markdown("""
+                <style>
+                .readonly-box textarea {
+                    background: rgba(255,255,255,0.94) !important;
+                    color: #14428c !important;
+                    font-size: 1.15em !important;
+                    font-weight: 400 !important;
+                    border-radius: 7px !important;
+                    padding: 8px 13px !important;
+                    box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+                }
+                </style>
+            """, unsafe_allow_html=True)
+
+            with st.container():
+                st.markdown('<div class="readonly-box">', unsafe_allow_html=True)
+                st.text_area(
+                    label="",
+                    value=correct_text,
+                    key=f"answer_{i}",
+                    label_visibility="collapsed",
+                    disabled=True
+                )
+                st.markdown('</div>', unsafe_allow_html=True)
+
         else:
             input_text = st.text_area(
                 "",
@@ -241,7 +249,6 @@ elif mode == "부분 암송 테스트":
                         f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                         unsafe_allow_html=True
                     )
-
 
 
 
