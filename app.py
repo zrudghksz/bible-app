@@ -165,25 +165,24 @@ elif mode == "부분 암송 테스트":
         "<span style='color:#fff; font-weight:800; font-size:1.13em; display:block; margin-bottom:13px;'>📝 시작 절을 선택하세요.</span>",
         unsafe_allow_html=True
     )
-    # selectbox는 라벨 없이 하얀 배경(위 스타일과 맞춤)
     start_label = st.selectbox("", [f"{i}절" for i in range(1, len(verse_texts) - 4)])
     start_num = int(start_label.replace("절", ""))
 
-    # --- 토글: 각각 고유 key, 라벨은 마크다운 따로 ---
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
-            "<span style='color:#fff; font-weight:800; font-size:1.13em;'>전체 정답 보기</span>",
+            "<span style='color:#fff; font-weight:900; font-size:1.13em;'>전체 정답 보기</span>",
             unsafe_allow_html=True
         )
         show_answer = st.toggle("show_answer_toggle", value=False, label_visibility="collapsed")
     with col2:
         st.markdown(
-            "<span style='color:#fff; font-weight:800; font-size:1.13em;'>결과 보기</span>",
+            "<span style='color:#fff; font-weight:900; font-size:1.13em;'>결과 보기</span>",
             unsafe_allow_html=True
         )
         check_result = st.toggle("check_result_toggle", value=False, label_visibility="collapsed")
 
+    # 입력값 저장/복원
     user_inputs = []
 
     for i in range(start_num, start_num + 5):
@@ -191,15 +190,15 @@ elif mode == "부분 암송 테스트":
         correct_text = verse_texts[verse_index]
         key = f"input_{i}"
 
-        # --- 절 번호 라벨 (박스형) ---
+        # 절 번호 라벨 (더 진하게!)
         st.markdown(
             f"""
             <span style="
                 display: inline-block;
-                background: rgba(255,255,255,0.94);
-                color: #14428c;
-                font-size: 1.15em;
-                font-weight: 800;
+                background: rgba(255,255,255,0.97);
+                color: #193e73;
+                font-size: 1.18em;
+                font-weight: 900;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
                 margin-bottom: 6px;
@@ -209,9 +208,10 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 입력창
+        # 정답보기 켜면 입력창 disable, 아니면 기존 입력값 보존
         if show_answer:
-            input_text = st.text_area(
+            # 정답 출력(비활성)
+            st.text_area(
                 "",
                 value=correct_text,
                 key=f"{key}_answer",
@@ -219,28 +219,35 @@ elif mode == "부분 암송 테스트":
                 label_visibility="collapsed"
             )
         else:
+            # 이전 입력값 복구
+            input_val = st.session_state.get(key, "")
             input_text = st.text_area(
                 "",
-                value=st.session_state.get(key, ""),
+                value=input_val,
                 key=key,
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
+            # 세션에 값 저장
+            st.session_state[key] = input_text
+            user_inputs.append(input_text)
 
-        # 결과 표시
-        if check_result and not show_answer:
-            if input_text.strip() == "":
-                st.markdown(
-                    f"<div style='color:red; font-weight:bold; font-size:16px;'>❌ 오답 (빈칸)</div>",
-                    unsafe_allow_html=True
-                )
-            else:
-                is_correct = compare_texts(correct_text, input_text)
-                st.markdown(
-                    f"<div style='color:{'green' if is_correct else 'red'}; font-weight:bold; font-size:16px;'>"
-                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                    unsafe_allow_html=True
-                )
+            # 결과표시: 정답보기 꺼져있을 때만!
+            if check_result:
+                if input_text.strip() == "":
+                    st.markdown(
+                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답'}</div>",
+                        unsafe_allow_html=True
+                    )
+                else:
+                    is_correct = compare_texts(correct_text, input_text)
+                    st.markdown(
+                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
+                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                        unsafe_allow_html=True
+                    )
+        # 정답보기 on, 결과보기 on 동시에는 결과 숨김(불필요하니 주석)
+        # (혹시 동시 체크도 필요하면 이 부분에서 안내 가능)
 
 
 
