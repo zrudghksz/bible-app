@@ -169,22 +169,38 @@ elif mode == "부분 암송 테스트":
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        # 각 절별로 정답보기 체크박스
-        show_this_answer = st.checkbox(f"{i}절 정답보기", key=f"show_answer_{i}")
+        # --- 각 절 라벨 스타일 강조 ---
+        st.markdown(
+            f"""
+            <span style="
+                display: inline-block;
+                background: rgba(255,255,255,0.94);
+                color: #14428c;
+                font-size: 1.15em;
+                font-weight: 800;
+                padding: 4px 13px 4px 10px;
+                border-radius: 7px;
+                margin-bottom: 6px;
+                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+                text-shadow: 0 2px 10px #fff, 0 1px 6px #aaa;">
+                {i}절
+            </span>
+            """,
+            unsafe_allow_html=True
+        )
 
-        # --- 개선(정답을 value에 넣어 진하게 보임) ---
-        # (입력값 대신 정답을 표시, 전체/절별 정답보기일 때만)
-        if show_answer or show_this_answer:
+        # --- 입력창 (정답 보기 시 정답 표시, 아니면 입력값) ---
+        if show_answer:
             display_value = correct_text
         else:
             display_value = st.session_state[key]
 
         input_text = st.text_area(
-            f"{i}절",
+            "",
             value=display_value,
             key=key,
-            placeholder="",   # placeholder 사용 안함!
-            label_visibility="visible"
+            placeholder="직접 입력해 보세요.",
+            label_visibility="collapsed"
         )
 
         user_inputs.append(input_text)
@@ -196,6 +212,7 @@ elif mode == "부분 암송 테스트":
                 f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                 unsafe_allow_html=True
             )
+
 
 elif mode == "전체 암송 테스트":
     st.subheader("🧠 전체 암송 테스트 (29절)")
