@@ -280,7 +280,7 @@ elif mode == "전체 암송 테스트":
         .stTextArea textarea:disabled {
             color: #111 !important;
             font-size: 1.15em !important;
-            font-weight: 700 !important;
+            font-weight: 300 !important;
             line-height: 1.8em !important;
             font-family: 'Segoe UI', sans-serif !important;
         }
