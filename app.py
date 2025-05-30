@@ -166,37 +166,49 @@ elif mode == "부분 암송 테스트":
 
     col1, col2 = st.columns(2)
     with col1:
-        show_answer = st.toggle("정답 보기", value=False, key="partial_show_answer")
+        show_answer = st.toggle("전체 정답 보기", value=False, key="partial_show_answer")
     with col2:
-        show_result = st.toggle("결과 보기", value=False, key="partial_show_result")
-
-    st.markdown("""
-        <style>
-        .result-tag { font-weight: bold; margin-left: 6px; color: green; font-size: 15px; }
-        .result-tag.wrong { color: red; }
-        .verse-label {
-            display:inline-block; 
-            background: #f8fbff; 
-            color: #22537d;
-            font-size: 1.13em;
-            font-weight: 700;
-            border-radius: 7px; 
-            padding: 1px 10px 1.5px 10px; 
-            margin-bottom: 2px; 
-            margin-top: 12px;
-            letter-spacing:0.03em;
-        }
-        </style>
-    """, unsafe_allow_html=True)
+        check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
 
     for i in range(start_num, start_num + 5):
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"input_partial_{i}"
 
-        st.markdown(f"<span class='verse-label'>{i}절</span>", unsafe_allow_html=True)
+        # 절 번호 박스
+        st.markdown(
+            f"""
+            <span style="
+                display: inline-block;
+                background: rgba(255,255,255,0.94);
+                color: #14428c;
+                font-size: 1.15em;
+                font-weight: 800;
+                padding: 4px 13px 4px 10px;
+                border-radius: 7px;
+                margin-bottom: 6px;
+                box-shadow: 0 2px 12px rgba(70,70,120,0.13);">
+            {i}절</span>
+            """, unsafe_allow_html=True
+        )
+
+        # 정답 보기 켰을 때 박스(글씨 굵고 진하게, 전체와 동일)
         if show_answer:
-            st.markdown(f"<div style='background:#fff;border-radius:6px;padding:8px 14px 7px 14px;border:1.5px solid #b3c9ee;margin-bottom:8px;color:#22537d;font-size:1.07em;font-weight:600;'>{correct_text}</div>", unsafe_allow_html=True)
+            st.markdown(
+                f"""
+                <div style="
+                    background: rgba(255,255,255,0.98); 
+                    color: #193e73;
+                    border-radius: 7px;
+                    font-size: 1.11em;
+                    font-weight: 800;
+                    padding: 10px 15px 10px 15px;
+                    margin-bottom: 10px;
+                    border: 1.5px solid #aacdee;">
+                    {correct_text}
+                </div>
+                """, unsafe_allow_html=True
+            )
         else:
             input_text = st.text_area(
                 "",
@@ -205,38 +217,50 @@ elif mode == "부분 암송 테스트":
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
-            if show_result:
-                is_correct = False
-                if input_text.strip():
+
+            # 결과 보기만 켰을 때
+            if check_result:
+                if input_text.strip() == "":
+                    st.markdown(
+                        f"<div style='color:#d63e22; font-weight:900; font-size:16px;'>❌ 오답</div>",
+                        unsafe_allow_html=True
+                    )
+                else:
                     is_correct = compare_texts(correct_text, input_text)
-                st.markdown(
-                    f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
-                    f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
-                    unsafe_allow_html=True
-                )
+                    st.markdown(
+                        f"<div style='color:{'green' if is_correct else '#d63e22'}; font-weight:900; font-size:16px;'>"
+                        f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
+                        unsafe_allow_html=True
+                    )
+
 
 elif mode == "전체 암송 테스트":
     st.subheader("🧠 전체 암송 테스트 (29절)")
     col1, col2 = st.columns([1, 1])
     with col1:
-        show_answer = st.toggle("정답 보기", value=False)
+        show_answer = st.toggle("정답 보기", value=False, key="full_show_answer")
     with col2:
-        show_result = st.toggle("결과 보기", value=False)
+        show_result = st.toggle("결과 보기", value=False, key="full_show_result")
     st.markdown("""
         <style>
-        .result-tag { font-weight: bold; margin-left: 6px; color: green; font-size: 15px; }
-        .result-tag.wrong { color: red; }
-        .verse-label {
-            display:inline-block; 
-            background: #f8fbff; 
-            color: #22537d;
-            font-size: 1.13em;
-            font-weight: 700;
-            border-radius: 7px; 
-            padding: 1px 10px 1.5px 10px; 
-            margin-bottom: 2px; 
-            margin-top: 12px;
-            letter-spacing:0.03em;
+        textarea {
+            color: #193e73 !important;
+            font-size: 1.11em !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.01em;
+        }
+        textarea::placeholder {
+            color: #bababa !important;
+            opacity: 1 !important;
+        }
+        .result-tag {
+            font-weight: bold;
+            margin-left: 6px;
+            color: green;
+            font-size: 15px;
+        }
+        .result-tag.wrong {
+            color: red;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -248,7 +272,22 @@ elif mode == "전체 암송 테스트":
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        st.markdown(f"<span class='verse-label'>{i+1}절</span>", unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <span style="
+                display: inline-block;
+                background: rgba(255,255,255,0.94);
+                color: #14428c;
+                font-size: 1.15em;
+                font-weight: 800;
+                padding: 4px 13px 4px 10px;
+                border-radius: 7px;
+                margin-bottom: 6px;
+                box-shadow: 0 2px 12px rgba(70,70,120,0.13);">
+            {i+1}절</span>
+            """, unsafe_allow_html=True
+        )
+
         input_text = st.text_area(
             "",
             value=st.session_state[key],
