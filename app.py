@@ -32,23 +32,25 @@ def compare_texts(correct, user):
 
 st.set_page_config(page_title="성경 암송", page_icon="📓", layout="centered")
 
+
+# --- 문자 및 스타일 ---
 st.markdown("""
 <style>
-/* 전체 앱 텍스트(본문, 안내문, 라벨 등) 명도 및 배경 강화 */
-.stApp, .css-ffhzg2, .stMarkdown, .stRadio label, .stText, .st-b8, .css-1kyxreq, .css-1c7y2kd, .css-10trblm, .css-qrbaxs, .stToggle label {
-    color: #222 !important; /* 진한 글씨 */
-    text-shadow: 0 1px 6px #fff, 0 1px 6px #fff !important; /* 밝은 아웃라인 */
+/* 텍스트/안내문에만 반투명 흰 배경과 진한 글씨 */
+.stMarkdown, .stRadio label, .stText, .st-b8, .css-1kyxreq, .css-1c7y2kd, .css-10trblm, .css-qrbaxs, .stToggle label {
+    color: #222 !important;
+    text-shadow: 0 1px 6px #fff, 0 1px 6px #fff !important;
     font-weight: 600 !important;
-    background: rgba(255,255,255,0.78) !important; /* 안내문 포함 모두 반투명 흰 배경 */
+    background: rgba(255,255,255,0.82) !important;
     border-radius: 10px !important;
     padding: 8px 14px !important;
     margin-bottom: 12px !important;
 }
-/* 제목, 소제목 별도 진하게 */
+/* 제목 스타일만 별도 진하게 */
 h1, h2, h3, h4 {
     color: navy !important;
     text-shadow: 0 2px 8px #fff, 0 2px 8px #fff !important;
-    background: rgba(255,255,255,0.90) !important;
+    background: rgba(255,255,255,0.92) !important;
     border-radius: 12px !important;
     padding: 12px 16px !important;
 }
@@ -57,7 +59,6 @@ h1, h2, h3, h4 {
     background: none !important;
     box-shadow: none !important;
 }
-
 /* 입력/선택 박스 공통 스타일 */
 textarea::placeholder {
     color: black !important;
@@ -82,12 +83,14 @@ textarea::placeholder {
     margin-bottom: 10px;
     padding: 4px 12px 2px 12px;
 }
+/* ✅ 앱 전체 배경이미지는 그대로 유지! */
 .stApp {
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }
+/* 버튼, 결과 등 기타 스타일 */
 .stButton > button {
     background-color: #4a7ebb;
     color: white;
@@ -140,7 +143,6 @@ textarea::placeholder {
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 # --- 앱 제목  ---
 st.markdown("""
