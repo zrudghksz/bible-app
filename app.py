@@ -34,6 +34,7 @@ def compare_texts(correct, user):
 # 문자 및 상자 ---
 st.markdown("""
 <style>
+/* ================== 앱 배경 ================== */
 .stApp {
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
     background-size: cover;
@@ -41,9 +42,9 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* ================= 타이틀(맨 위 h1만 검정색) ================= */
+/* ================== 타이틀(h1)만 검정 ================== */
 h1 {
-    color: #222 !important;                    /* 진한 검정 */
+    color: #222 !important;
     background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
     border-radius: 10px !important;
     padding: 13px 18px !important;
@@ -53,7 +54,8 @@ h1 {
     margin-bottom: 18px !important;
     text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
 }
-/* ========== 섹션 타이틀(하위 h2, h3 등)은 기존 하늘색 + 파랑 ========== */
+
+/* ========== 섹션 타이틀(하위 h2, h3 등)은 진파랑 ========== */
 h2, h3, .section-title {
     color: #193e73 !important;
     background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
@@ -66,9 +68,19 @@ h2, h3, .section-title {
     text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
 }
 
-/* (이하 기존 스타일 유지) */
+/* ========== (하단) 라벨: 정답/결과/절번호 등 ========== */
+.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label,
+.stTextInput > label, .stTextArea > label, .st-b8, .css-1c7y2kd {
+    color: #fff !important;
+    font-weight: 800 !important;
+    font-size: 1.10em !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
 
-/* ========== 라디오(원) 선택 진하게 ========== */
+/* ======= 이하 기존 스타일(원, 박스 등) 그대로 유지 ======= */
 [data-baseweb="radio"] label > span:first-child {
     border: 3px solid #103477 !important;
     background: #fff !important;
@@ -92,20 +104,6 @@ h2, h3, .section-title {
     font-size: 1.08em !important;
     color: #22336b !important;
 }
-
-/* ========== (하단) 라벨: 정답/결과/절번호 등 ========== */
-.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label,
-.stTextInput > label, .stTextArea > label, .st-b8, .css-1c7y2kd {
-    color: #fff !important;
-    font-weight: 800 !important;
-    font-size: 1.10em !important;
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-}
-
-/* ========== 라디오 박스(메뉴 전체 박스) ========== */
 .stRadio {
     background: linear-gradient(92deg, #e3f2fd 60%, #f5faff 100%) !important;
     border-radius: 12px !important;
@@ -114,22 +112,16 @@ h2, h3, .section-title {
     border: 1.5px solid #aed7fa !important;
     margin-bottom: 13px;
 }
-
-/* ========== 체크박스/토글 라벨(진한 파랑, 필요한 경우) ========== */
 .stCheckbox label, .stToggle label {
     color: #2274ad !important;
     font-weight: 900 !important;
     font-size: 1.09em !important;
     background: none !important;
 }
-
-/* ========== 드롭다운 옵션 ========== */
 [data-baseweb="select"] > div {
     color: #2350aa !important;
     font-weight: 800 !important;
 }
-
-/* ========== 안내/강조문 ========== */
 .markdown-highlight {
     background: rgba(255,255,255,0.95);
     border-radius: 8px;
@@ -140,8 +132,6 @@ h2, h3, .section-title {
     margin-bottom: 12px;
     box-shadow: 0 2px 10px rgba(160,170,210,0.13);
 }
-
-/* ========== 전체 폰트 ========== */
 body, .stApp, .stMarkdown {
     color: #23272f !important;
     font-weight: 500 !important;
