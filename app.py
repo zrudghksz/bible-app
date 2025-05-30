@@ -265,21 +265,39 @@ elif mode == "전체 암송 테스트":
 
     st.markdown("""
         <style>
+        /* 절 번호 스타일 */
+        .verse-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.94);
+            color: #14428c;
+            font-size: 1.15em;
+            font-weight: 800;
+            padding: 4px 13px 4px 10px;
+            border-radius: 7px;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 12px rgba(70,70,120,0.13);
+        }
+
+        /* textarea 내부 placeholder 스타일 (정답 표시용) */
         textarea::placeholder {
+            font-size: 14px !important;  /* 원하는 크기로 조절 */
             color: black !important;
             opacity: 1 !important;
         }
+
         .result-tag {
             font-weight: bold;
             margin-left: 6px;
             color: green;
             font-size: 15px;
         }
+
         .result-tag.wrong {
             color: red;
         }
         </style>
     """, unsafe_allow_html=True)
+
 
     user_inputs = []
 
@@ -291,18 +309,9 @@ elif mode == "전체 암송 테스트":
 
         # 절 번호 라벨 박스 (부분 테스트와 통일)
         st.markdown(
-            f"""
-            <span style="
-                display: inline-block;
-                background: rgba(255,255,255,0.94);
-                color: #14428c;
-                font-size: 1.15em;
-                font-weight: 800;
-                padding: 4px 13px 4px 10px;
-                border-radius: 7px;
-                margin-bottom: 6px;
-                box-shadow: 0 2px 12px rgba(70,70,120,0.13);
-            ">{i+1}절</span>
+            f"""<span class="verse-label">{i+1}절</span>""",
+            unsafe_allow_html=True
+        )
             """,
             unsafe_allow_html=True
         )
