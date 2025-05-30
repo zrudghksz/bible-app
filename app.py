@@ -120,7 +120,13 @@ mode = st.radio("**🎧 모드를 선택하세요**", ["부분 듣기", "전체 
 
 # ✅ 듣기 처리 ---
 if mode == "부분 듣기":
-    verse_num_label = st.selectbox("들을 절을 선택하세요.", [f"{i}절" for i in range(1, len(verse_texts)+1)])
+    # 1. 안내문구(하얀색) 별도 출력
+    st.markdown(
+        "<span style='color:#fff; font-size:1.13em; font-weight:900;'>들을 절을 선택하세요.</span>",
+        unsafe_allow_html=True
+    )
+    # 2. selectbox 라벨은 빈 문자열
+    verse_num_label = st.selectbox("", [f"{i}절" for i in range(1, len(verse_texts)+1)])
     verse_num = int(verse_num_label.replace("절", ""))
     file_name = f"{verse_num:02d}_{verse_num}절.wav"
     path = os.path.join(audio_dir, file_name)
@@ -128,10 +134,9 @@ if mode == "부분 듣기":
     if os.path.exists(path):
         st.audio(path, format='audio/wav')
         st.markdown(
-    f"<div class='markdown-highlight'>{verse_texts[verse_num-1]}</div>",
-    unsafe_allow_html=True
-)
-
+            f"<div class='markdown-highlight'>{verse_texts[verse_num-1]}</div>",
+            unsafe_allow_html=True
+        )
     else:
         st.error("오디오 파일을 찾을 수 없습니다.")
 
