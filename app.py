@@ -82,35 +82,37 @@ h2, h3, .section-title {
 
 /* ======= 이하 기존 스타일(원, 박스 등) 그대로 유지 ======= */
 [data-baseweb="radio"] label > span:first-child {
-    border: 3px solid #103477 !important;
+    border: 3px solid #193e73 !important;
     background: #fff !important;
     border-radius: 50% !important;
-    width: 24px !important;
-    height: 24px !important;
+    width: 27px !important;
+    height: 27px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-right: 10px !important;
+    margin-right: 12px !important;
 }
 [data-baseweb="radio"] label > span:first-child > div {
-    background: #103477 !important;
-    width: 12px !important;
-    height: 12px !important;
+    background: #193e73 !important;
+    width: 13px !important;
+    height: 13px !important;
     border-radius: 50% !important;
-    box-shadow: 0 0 5px #b2c8fa;
+    box-shadow: 0 0 5px #6ba4f6;
 }
 [data-baseweb="radio"] label {
-    font-weight: 800 !important;
-    font-size: 1.08em !important;
-    color: #22336b !important;
+    font-weight: 900 !important;
+    font-size: 1.18em !important;
+    color: #193e73 !important;     /* 진파랑 */
 }
 .stRadio {
-    background: linear-gradient(92deg, #e3f2fd 60%, #f5faff 100%) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 20px rgba(65,125,185,0.08), 0 1.5px 12px #b4dbfb;
-    padding: 10px 18px 10px 16px;
-    border: 1.5px solid #aed7fa !important;
-    margin-bottom: 13px;
+    background: linear-gradient(92deg, #e5f0fb 80%, #d2e3f8 100%) !important;  /* 더 진한 하늘 */
+    border-radius: 16px !important;
+    box-shadow: 0 6px 30px rgba(30,70,120,0.10), 0 1.5px 12px #aacdee;
+    padding: 18px 24px 18px 22px !important;
+    border: 2.5px solid #86b8ea !important;      /* 테두리 진하게 */
+    margin-bottom: 15px;
+}
+
 }
 .stCheckbox label, .stToggle label {
     color: #2274ad !important;
