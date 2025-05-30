@@ -189,10 +189,8 @@ elif mode == "부분 암송 테스트":
         verse_index = i - 1
         correct_text = verse_texts[verse_index]
         key = f"input_{i}"
-        if key not in st.session_state:
-            st.session_state[key] = ""
 
-        # --- 절 번호 라벨 ---
+        # 절 번호 라벨
         st.markdown(
             f"""
             <span style="
@@ -210,25 +208,29 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # --- 입력창 (정답 보기 시 정답 표시, 아니면 입력값) ---
+        # --- 입력창(정답 보기면 잠김, 아니면 유저입력값) ---
         if show_answer:
-            display_value = correct_text
+            input_text = st.text_area(
+                "",
+                value=correct_text,
+                key=f"{key}_answer",
+                disabled=True,
+                label_visibility="collapsed"
+            )
         else:
-            display_value = st.session_state[key]
-
-        input_text = st.text_area(
-            "",
-            value=display_value,
-            key=key,
-            placeholder="직접 입력해 보세요.",
-            label_visibility="collapsed"
-        )
+            input_text = st.text_area(
+                "",
+                value=st.session_state.get(key, ""),
+                key=key,
+                placeholder="직접 입력해 보세요.",
+                label_visibility="collapsed"
+            )
+            st.session_state[key] = input_text   # 입력값 항상 저장
 
         user_inputs.append(input_text)
 
-        # --- 결과 표시: show_answer가 켜져 있을 땐 표시 X ---
+        # 결과표시: show_answer가 꺼져있을 때만
         if check_result and not show_answer:
-            # 빈칸(공백제거) = 오답, 그 외 공백무시 정답비교
             if input_text.strip() == "":
                 st.markdown(
                     f"<div style='color:red; font-weight:bold; font-size:16px;'>❌ 오답</div>",
@@ -241,7 +243,6 @@ elif mode == "부분 암송 테스트":
                     f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                     unsafe_allow_html=True
                 )
-
 
 
 elif mode == "전체 암송 테스트":
