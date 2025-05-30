@@ -173,7 +173,7 @@ elif mode == "부분 암송 테스트":
     # 정답/결과 토글
     col1, col2 = st.columns(2)
     with col1:
-        show_answer = st.toggle("정답 보기", value=False, key="partial_show_answer")
+        show_answer = st.toggle("전체 정답 보기", value=False, key="partial_show_answer")
     with col2:
         check_result = st.toggle("결과 보기", value=False, key="partial_show_result")
 
@@ -224,8 +224,12 @@ elif mode == "부분 암송 테스트":
             unsafe_allow_html=True
         )
 
-        if show_answer:
-            # ✅ div 박스로 출력 (textarea 대신)
+        # ✅ 절별 정답 보기 체크박스
+        show_individual_answer = st.checkbox(f"{i}절 정답 보기", key=f"partial_show_ans_{i}")
+
+        # ✅ 조건별 출력 분기 (정답 보기 or 직접 입력)
+        if show_answer or show_individual_answer:
+            # ✅ 정답 표시 div
             st.markdown(f"<div class='readonly-box'>{correct_text}</div>", unsafe_allow_html=True)
         else:
             # 입력창
@@ -251,6 +255,7 @@ elif mode == "부분 암송 테스트":
                     f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                     unsafe_allow_html=True
                 )
+
 
 
 
