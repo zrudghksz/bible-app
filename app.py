@@ -33,12 +33,13 @@ def compare_texts(correct, user):
 
 st.markdown("""
 <style>
-/* ==== 전체 앱 배경 이미지 (앱 전체 적용) ==== */
-.stApp {
+/* ==== 전체 앱 배경 이미지 완전 적용 ==== */
+html, body, .stApp {
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
 }
 
 /* 라디오(모드 선택) 체크/동그라미 아이콘 숨김 */
