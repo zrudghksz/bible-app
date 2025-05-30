@@ -34,7 +34,6 @@ def compare_texts(correct, user):
 # 문자 및 상자 ---
 st.markdown("""
 <style>
-/* ================== 앱 배경 ================== */
 .stApp {
     background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
     background-size: cover;
@@ -42,9 +41,9 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* ========== 타이틀/섹션(상단) 하늘색 박스 ========== */
-h1, h2, h3, .section-title {
-    color: #193e73 !important;
+/* ================= 타이틀(맨 위 h1만 검정색) ================= */
+h1 {
+    color: #222 !important;                    /* 진한 검정 */
     background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
     border-radius: 10px !important;
     padding: 13px 18px !important;
@@ -54,6 +53,20 @@ h1, h2, h3, .section-title {
     margin-bottom: 18px !important;
     text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
 }
+/* ========== 섹션 타이틀(하위 h2, h3 등)은 기존 하늘색 + 파랑 ========== */
+h2, h3, .section-title {
+    color: #193e73 !important;
+    background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
+    border-radius: 10px !important;
+    padding: 13px 18px !important;
+    font-weight: 900 !important;
+    font-size: 1.18em !important;
+    box-shadow: 0 2px 10px rgba(60,70,90,0.10);
+    margin-bottom: 15px !important;
+    text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
+}
+
+/* (이하 기존 스타일 유지) */
 
 /* ========== 라디오(원) 선택 진하게 ========== */
 [data-baseweb="radio"] label > span:first-child {
@@ -136,7 +149,6 @@ body, .stApp, .stMarkdown {
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 
 # --- 앱 제목  ---
