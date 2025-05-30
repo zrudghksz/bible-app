@@ -266,10 +266,10 @@ elif mode == "전체 암송 테스트":
     st.markdown("""
         <style>
         textarea::placeholder {
-            color: black !important;
-            opacity: 1 !important;
-            font-size: 1.15em !important;
+            color: #999 !important;
+            font-size: 0.97em !important;
             font-weight: 400 !important;
+            opacity: 0.85 !important;
         }
         .result-tag {
             font-weight: bold;
@@ -282,6 +282,7 @@ elif mode == "전체 암송 테스트":
         }
         </style>
     """, unsafe_allow_html=True)
+
 
     user_inputs = []
 
