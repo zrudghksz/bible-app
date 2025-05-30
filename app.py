@@ -33,183 +33,55 @@ def compare_texts(correct, user):
 
 st.markdown("""
 <style>
-/* ================== 앱 배경 ================== */
-.stApp {
-    background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjzYaPOcaFmVZ2eJCpNVGJwIAcAKcGymqLfDfPKhLSV57kk78TPv2QrlU3lfdpXf-ljtq_5BKhEN1cG0fXSgpGROVtlet27V31fo9-U5JFRvBTnfGOE4ST9p71uw5vgRHb2xiJKL-d8H0ad1xafK_BG3jh4iSHUAMn37GxEOY2roENSUJMeEnTRN3o1hSx/s320/ChatGPT%20Image%202025%EB%85%84%205%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2003_05_44.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+/* 라디오(모드 선택) 체크/동그라미 아이콘 숨김 */
+[data-baseweb="radio"] label > span:first-child {
+    display: none !important;
 }
 
-/* ================== 모든 타이틀/라벨/질문 진파랑 ================== */
-h1, h2, h3, h4, .st-b8, .css-1c7y2kd, 
-.stRadio label, .stSelectbox label, .stTextInput > label, .stTextArea > label, label, 
-.stMarkdown, .stSubheader, .stHeader, .stRadio > legend {
-    color: #193e73 !important;
-    font-weight: 900 !important;
-}
-
-/* ================== 타이틀(h1) 디자인 ================== */
-h1 {
-    background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
-    border-radius: 10px !important;
-    padding: 13px 18px !important;
-    font-size: 1.35em !important;
-    box-shadow: 0 2px 10px rgba(60,70,90,0.10);
-    margin-bottom: 18px !important;
-    text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
-}
-h2, h3, .section-title {
-    background: linear-gradient(92deg, #e0f3ff 80%, #c9e9fa 100%) !important;
-    border-radius: 10px !important;
-    padding: 13px 18px !important;
-    font-size: 1.18em !important;
-    box-shadow: 0 2px 10px rgba(60,70,90,0.10);
-    margin-bottom: 15px !important;
-    text-shadow: 0 2px 8px #fff, 0 1px 7px #b5e0fc !important;
-}
-
-/* ========== (하단) 라벨: 정답/결과/절번호 등 ========== */
-.stRadio label, .stToggle label, .stCheckbox label, .stSelectbox label, label,
-.stTextInput > label, .stTextArea > label, .st-b8, .css-1c7y2kd {
-    font-weight: 800 !important;
-    font-size: 1.10em !important;
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-}
-
-/* ======= 라디오 선택 영역(모드) 강조(추가 부분) ======= */
-[data-baseweb="radio"] > div > div {
-    margin-bottom: 7px;
-}
+/* 라디오 항목 스타일(박스형) */
 [data-baseweb="radio"] label {
-    font-size: 1.18em !important;
-    font-weight: 900 !important;
-    color: #193e73 !important;
+    display: block !important;
+    width: 100%;
     border-radius: 12px !important;
-    padding: 6px 18px !important;
-    transition: background 0.2s, box-shadow 0.2s;
+    padding: 7px 22px !important;
+    margin-bottom: 8px !important;
+    font-size: 1.14em !important;
+    font-weight: 700 !important;
+    color: #22537d !important;
     background: #f4f8ff !important;
-    margin-bottom: 7px !important;
-    box-shadow: 0 1.5px 8px #b7d2f0;
-    border: 2.5px solid #f4f8ff;
+    border: 2.5px solid #f4f8ff !important;
+    box-shadow: 0 1.5px 7px #b9d4fa;
     cursor: pointer;
+    transition: background 0.16s, color 0.16s, border 0.16s;
 }
+
+/* 마우스 오버 효과 */
 [data-baseweb="radio"] label:hover {
     background: #e3eeff !important;
     border: 2.5px solid #5795ef !important;
-    color: #174d94 !important;
+    color: #103c79 !important;
 }
-[data-baseweb="radio"] input:checked + div {
-    background: #d1e6fc !important;
-    border: 2.5px solid #3977d5 !important;
-    color: #163668 !important;
-    box-shadow: 0 2px 12px #85b8ff;
-}
-[data-baseweb="radio"] input:checked + div label {
-    color: #0d2550 !important;
-    font-weight: 900 !important;
-}
-[data-baseweb="radio"] label > span:first-child {
-    border: 3px solid #193e73 !important;
-    background: #fff !important;
-    border-radius: 8px !important;
-    width: 22px !important;
-    height: 22px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin-right: 13px !important;
-}
-[data-baseweb="radio"] label > span:first-child > div {
-    background: #4a88de !important;
-    width: 13px !important;
-    height: 13px !important;
-    border-radius: 4px !important;
-    box-shadow: 0 0 7px #a5d2ff;
-}
-/* ============================================== */
 
-/* ======= 이하 기존 스타일(원, 박스 등) 그대로 유지 ======= */
-[data-baseweb="radio"] label > span:first-child {
-    border: 3px solid #193e73 !important;
-    background: #fff !important;
-    border-radius: 50% !important;
-    width: 27px !important;
-    height: 27px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin-right: 12px !important;
-}
-[data-baseweb="radio"] label > span:first-child > div {
-    background: #193e73 !important;
-    width: 13px !important;
-    height: 13px !important;
-    border-radius: 50% !important;
-    box-shadow: 0 0 5px #6ba4f6;
-}
-[data-baseweb="radio"] label {
+/* 선택된 항목: 배경+글씨 강조 */
+[data-baseweb="radio"] input:checked + div label {
+    background: #3977d5 !important;
+    border: 2.5px solid #3977d5 !important;
+    color: #fff !important;
     font-weight: 900 !important;
-    font-size: 1.18em !important;
-    color: #193e73 !important;     /* 진파랑 */
+    box-shadow: 0 2px 10px #a9ccff;
 }
+
+/* 전체 라디오 컨테이너(테두리+배경) */
 .stRadio {
-    background: linear-gradient(92deg, #e5f0fb 80%, #d2e3f8 100%) !important;  /* 더 진한 하늘 */
+    background: linear-gradient(92deg, #e5f0fb 80%, #d2e3f8 100%) !important;
     border-radius: 16px !important;
     box-shadow: 0 6px 30px rgba(30,70,120,0.10), 0 1.5px 12px #aacdee;
-    padding: 18px 24px 18px 22px !important;
-    border: 2.5px solid #86b8ea !important;      /* 테두리 진하게 */
-    margin-bottom: 15px;
-}
-
-}
-.stCheckbox label, .stToggle label {
-    color: #2274ad !important;
-    font-weight: 900 !important;
-    font-size: 1.09em !important;
-    background: none !important;
-}
-[data-baseweb="select"] > div {
-    color: #2350aa !important;
-    font-weight: 800 !important;
-}
-.markdown-highlight {
-    background: rgba(255,255,255,0.95);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: #1a377b;
-    font-size: 1.08em;
-    font-weight: 700;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 10px rgba(160,170,210,0.13);
-}
-body, .stApp, .stMarkdown {
-    color: #23272f !important;
-    font-weight: 500 !important;
-    font-size: 1.04em !important;
-}
-/* 라디오 불릿/점 완전 제거 (모든 환경 호환) */
-.stRadio ul, .stRadio li, .stRadio span, .stRadio div {
-    list-style-type: none !important;
-}
-.stRadio li::marker,
-.stRadio li::before,
-.stRadio li::after,
-.stRadio span::before,
-.stRadio span::after {
-    content: "" !important;
-    display: none !important;
-}
-.stRadio ul, .stRadio li {
-    box-shadow: none !important;
-    background-image: none !important;
+    padding: 20px 28px 18px 22px !important;
+    border: 2.5px solid #86b8ea !important;
+    margin-bottom: 18px;
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 
 # --- 앱 제목  ---
