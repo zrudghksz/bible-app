@@ -265,7 +265,7 @@ elif mode == "전체 암송 테스트":
     with col2:
         show_result = st.toggle("결과 보기", value=False)
 
-    # 공통 스타일: placeholder 흐리게, 정답 진하게
+    # CSS 수정
     st.markdown("""
         <style>
         textarea::placeholder {
@@ -275,10 +275,10 @@ elif mode == "전체 암송 테스트":
             font-family: 'Segoe UI', sans-serif !important;
         }
         textarea:disabled {
-            color: #111 !important;
-            font-size: 1.15em !important;
-            font-weight: 700 !important;
-            line-height: 1.8em !important;
+            color: #222 !important;
+            font-size: 1.1em !important;
+            font-weight: 500 !important;
+            line-height: 1.7em !important;
             font-family: 'Segoe UI', sans-serif !important;
         }
         .result-tag {
@@ -292,8 +292,6 @@ elif mode == "전체 암송 테스트":
         }
         </style>
     """, unsafe_allow_html=True)
-
-    user_inputs = []
 
     for i in range(len(verse_texts)):
         correct_text = verse_texts[i]
@@ -319,31 +317,39 @@ elif mode == "전체 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # ✅ 정답 보기 시: 정답 표시 (disabled=True)
+        typed = st.session_state[key].strip()
+
         if show_answer:
+            # 정답 보기 (진하게 표시)
             st.text_area(
                 label="",
                 value=correct_text,
                 key=f"answer_{i}",
-                label_visibility="collapsed",
-                disabled=True
+                disabled=True,
+                label_visibility="collapsed"
             )
         else:
-            # ✅ 사용자 입력 + placeholder 적용
-            input_text = st.text_area(
+            # 사용자 입력 (플레이스홀더 포함)
+            st.session_state[key] = st.text_area(
                 "",
-                value=st.session_state[key],
+                value=typed,
                 key=key,
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
-            user_inputs.append(input_text)
 
-            # ✅ 결과 표시
-            if show_result:
-                is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
+        # 결과 표시
+        if show_result:
+            if typed == "":
+                st.markdown(
+                    f"<div class='result-tag wrong'>❌ 오답</div>",
+                    unsafe_allow_html=True
+                )
+            else:
+                is_correct = compare_texts(correct_text, typed)
                 st.markdown(
                     f"<div class='result-tag {'wrong' if not is_correct else ''}'>"
                     f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                     unsafe_allow_html=True
                 )
+
