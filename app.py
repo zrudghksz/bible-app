@@ -315,7 +315,7 @@ elif mode == "전체 암송 테스트":
             "",
             value=st.session_state[key],
             key=key,
-            placeholder=correct_text if show_answer else "직접 입력해 보세요.",
+            placeholder="직접 입력해 보세요." if not show_answer else "",
             label_visibility="collapsed"
         )
         user_inputs.append(input_text)
