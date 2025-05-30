@@ -220,7 +220,7 @@ elif mode == "부분 암송 테스트":
                 label_visibility="collapsed"
             )
         else:
-            # 사용자의 기존 입력값 복구
+            # 사용자의 기존 입력값 복구, 직접 저장 X (Streamlit이 자동 관리)
             input_text = st.text_area(
                 "",
                 value=st.session_state.get(key, ""),
@@ -228,7 +228,6 @@ elif mode == "부분 암송 테스트":
                 placeholder="직접 입력해 보세요.",
                 label_visibility="collapsed"
             )
-            st.session_state[key] = input_text   # 입력값 항상 저장
 
         user_inputs.append(input_text)
 
@@ -246,6 +245,7 @@ elif mode == "부분 암송 테스트":
                     f"{'✅ 정답' if is_correct else '❌ 오답'}</div>",
                     unsafe_allow_html=True
                 )
+
 
 
 elif mode == "전체 암송 테스트":
