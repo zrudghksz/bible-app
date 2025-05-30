@@ -248,18 +248,17 @@ elif mode == "부분 암송 테스트":
 
 
 elif mode == "전체 암송 테스트":
-    st.subheader("🧠 전체 암송 테스트 (29절)")
-
-    col1, col2 = st.columns(2)
+    st.subheader("\U0001f9e0 전체 암송 테스트 (29절)")
+    col1, col2 = st.columns([1, 1])
     with col1:
-        show_answer = st.toggle("정답 보기", value=False, key="full_show_answer")
+        show_answer = st.toggle("정답 보기", value=False)
     with col2:
-        show_result = st.toggle("결과 보기", value=False, key="full_show_result")
+        show_result = st.toggle("결과 보기", value=False)
 
     st.markdown("""
         <style>
         textarea::placeholder {
-            color: #222 !important;
+            color: black !important;
             opacity: 1 !important;
         }
         .result-tag {
@@ -274,21 +273,22 @@ elif mode == "전체 암송 테스트":
         </style>
     """, unsafe_allow_html=True)
 
+    user_inputs = []
+
     for i in range(len(verse_texts)):
         correct_text = verse_texts[i]
         key = f"full_{i}"
-
         if key not in st.session_state:
             st.session_state[key] = ""
 
-        # 절 번호 라벨
+        # 절 번호 라벨 박스 (부분 테스트와 통일)
         st.markdown(
             f"""
             <span style="
                 display: inline-block;
                 background: rgba(255,255,255,0.94);
                 color: #14428c;
-                font-size: 1.5em;
+                font-size: 1.15em;
                 font-weight: 800;
                 padding: 4px 13px 4px 10px;
                 border-radius: 7px;
@@ -299,7 +299,6 @@ elif mode == "전체 암송 테스트":
             unsafe_allow_html=True
         )
 
-        # 입력창 with 정답 보기 placeholder
         input_text = st.text_area(
             "",
             value=st.session_state[key],
@@ -307,8 +306,8 @@ elif mode == "전체 암송 테스트":
             placeholder=correct_text if show_answer else "",
             label_visibility="collapsed"
         )
+        user_inputs.append(input_text)
 
-        # 결과 비교
         if show_result:
             is_correct = compare_texts(correct_text, input_text.strip()) if input_text.strip() else False
             st.markdown(
