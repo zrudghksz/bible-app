@@ -143,11 +143,17 @@ if mode == "부분 듣기":
 
 
 elif mode == "전체 듣기":
-    st.subheader("전체 오디오 자동 재생")
-    st.info("전체 오디오를 자동으로 재생합니다.")
+    st.markdown(
+        "<span style='color:#fff; font-size:1.13em; font-weight:900;'>🎵 전체 오디오 자동 재생</span>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+    "<div class='markdown-highlight'>전체 오디오를 자동으로 재생합니다.</div>",
+    unsafe_allow_html=True
+    )
+
     if os.path.exists(full_audio_file):
         st.audio(full_audio_file, format="audio/wav")
-
     else:
         st.error("full_audio.wav 파일을 audio 폴더 안에 넣어주세요.")
 
