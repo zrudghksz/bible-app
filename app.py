@@ -148,14 +148,25 @@ elif mode == "전체 듣기":
         unsafe_allow_html=True
     )
     st.markdown(
-    "<div class='markdown-highlight'>전체 오디오를 자동으로 재생합니다.</div>",
-    unsafe_allow_html=True
+        "<div class='markdown-highlight'>전체 오디오를 자동으로 재생합니다.</div>",
+        unsafe_allow_html=True
     )
 
+    # ✅ 표준 속도 오디오
+    st.markdown("<h5 style='color:white; margin-top:24px;'>🔊 표준 속도</h5>", unsafe_allow_html=True)
     if os.path.exists(full_audio_file):
         st.audio(full_audio_file, format="audio/wav")
     else:
         st.error("full_audio.wav 파일을 audio 폴더 안에 넣어주세요.")
+
+    # ✅ 느리게 듣기 오디오
+    slow_audio_file = os.path.join(audio_dir, "full_audio2.wav")
+    st.markdown("<h5 style='color:white; margin-top:24px;'>🐢 느리게 듣기</h5>", unsafe_allow_html=True)
+    if os.path.exists(slow_audio_file):
+        st.audio(slow_audio_file, format="audio/wav")
+    else:
+        st.error("full_audio2.wav 파일을 audio 폴더 안에 넣어주세요.")
+
 
 
 
