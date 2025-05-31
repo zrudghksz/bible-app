@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import difflib
 import pandas as pd
-import base64
 
 # --- 파일 경로 설정 ---
 audio_dir = "audio"
@@ -144,81 +143,11 @@ if mode == "부분 듣기":
 
 
 elif mode == "전체 듣기":
-    st.markdown("""
-    <style>
-    /* 🎵 제목 */
-    .audio-title {
-        font-size: 1.08em;
-        font-weight: 800;
-        color: #1f3c88;
-        margin-bottom: 6px;
-        text-align: center;
-    }
-
-    /* 라디오 내부 줄 높이/정렬 */
-    [data-baseweb="radio"] {
-        padding-top: 0px !important;
-        margin-top: 0px !important;
-        margin-bottom: 0px !important;
-    }
-    [data-baseweb="radio"] div {
-        line-height: 1.4em;
-    }
-
-    /* 🎯 재생 상태 텍스트 */
-    .radio-label-style {
-        font-size: 1.05em;
-        font-weight: 700;
-        color: #004488;
-        margin: 4px auto 10px auto;
-        text-align: center;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    # 🎵 제목
-    st.markdown(
-        "<div class='audio-title'>🎵 전체 오디오 자동 재생</div>",
-        unsafe_allow_html=True
-    )
-
-    # ✅ 감싸는 라디오 박스
-    st.markdown("<div class='radio-container'>", unsafe_allow_html=True)
-
-    # 현재 상태 가져오기
-    default_mode = st.session_state.get("playback_mode", "1회 재생")
-
-    # 1개 라디오에서 선택 (2개 중 1개)
-    playback_mode = st.radio(
-        label="",
-        options=["1회 재생", "반복 재생"],
-        index=0 if default_mode == "1회 재생" else 1,
-        horizontal=True,
-        key="playback_mode"
-    )
-
-    # st.markdown("</div>", unsafe_allow_html=True)
-
-    # # ✅ 상태 텍스트
-    st.markdown(
-        f"<div class='radio-label-style'>{'🔁 반복 재생 중' if playback_mode == '반복 재생' else '⏹️ 1회 재생'}</div>",
-        unsafe_allow_html=True
-    )
-
-    # ✅ 오디오 출력
+    st.subheader("전체 오디오 자동 재생")
+    st.info("전체 오디오를 자동으로 재생합니다.")
     if os.path.exists(full_audio_file):
-        # 오디오 base64로 인코딩 → <audio> HTML 삽입
-        with open(full_audio_file, "rb") as f:
-            audio_bytes = f.read()
-            b64_audio = base64.b64encode(audio_bytes).decode()
+        st.audio(full_audio_file, format="audio/wav")
 
-        loop_attr = "loop" if playback_mode == "반복 재생" else ""
-        st.markdown(f"""
-            <audio controls {loop_attr} style="width: 100%; margin-top: 8px;">
-                <source src="data:audio/wav;base64,{b64_audio}" type="audio/wav">
-                브라우저가 오디오를 지원하지 않습니다.
-            </audio>
-        """, unsafe_allow_html=True)
     else:
         st.error("full_audio.wav 파일을 audio 폴더 안에 넣어주세요.")
 
