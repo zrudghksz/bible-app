@@ -161,7 +161,7 @@ elif mode == "전체 듣기":
 
     # ✅ 느리게 듣기 오디오
     slow_audio_file = os.path.join(audio_dir, "full_audio2.wav")
-    st.markdown("<h5 style='color:white; margin-top:24px;'>🐢 느리게 듣기</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='color:white; margin-top:24px;'>🐢 조금 느리게</h5>", unsafe_allow_html=True)
     if os.path.exists(slow_audio_file):
         st.audio(slow_audio_file, format="audio/wav")
     else:
