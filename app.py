@@ -3,11 +3,11 @@ import os
 import difflib
 import pandas as pd
 
-# --- ✅ 파일 경로 설정 ---
+# --- 파일 경로 설정 ---
 audio_dir = "audio"
 full_audio_file = os.path.join(audio_dir, "full_audio.wav")
 
-# --- ✅ 성경 본문 로드 및 엑셀 저장 ---
+# --- 성경 본문 로드 및 엑셀 저장 ---
 lines = []
 with open("verses.txt", "r", encoding="utf-8") as f:
     for line in f:
@@ -106,7 +106,7 @@ html, body, .stApp {
 """, unsafe_allow_html=True)
 
 
-# ---✅ 앱 제목  ---
+# --- 앱 제목  ---
 st.markdown("""
 <div style="text-align:center; margin-top:10px;">
     <h1 style="font-family: 'Arial'; color: navy; margin: 0; font-size: 36px;">
@@ -115,7 +115,11 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-#  ---✅ 모드 선택  ---
+
+
+
+
+# ✅ 모드 선택 선언
 mode = st.radio("**🎧 모드를 선택하세요**", ["본문 보기", "부분 듣기", "전체 듣기", "부분 암송 테스트", "전체 암송 테스트"], index=0)
 
 # ✅ Expander 제목 전용 스타일 정의
@@ -162,6 +166,10 @@ if mode == "본문 보기":
             """,
             unsafe_allow_html=True
         )
+
+
+
+
 # ✅ 듣기 처리 ---
 if mode == "부분 듣기":
     # 1. 안내문구(하얀색) 별도 출력
