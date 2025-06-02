@@ -146,26 +146,40 @@ if mode == "본문 보기":
     with st.expander("📖 본문 보기", expanded=True):
         numbered_verses = [f"<b>{i+1}절</b> {text}" for i, text in enumerate(verse_texts)]
 
-        st.markdown(
-            """
-            <div style="
-                background: linear-gradient(92deg, #f6faff 80%, #edf4fb 100%);
-                border: 2.5px solid #86b8ea;
-                border-radius: 16px;
-                padding: 28px 30px;
-                box-shadow: 0 6px 22px rgba(30,70,120,0.12);
-                font-size: 1.25em;
-                font-weight: 400;
-                line-height: 2.1em;
-                color: #1a2a4f;
-                letter-spacing: 0.01em;
-                font-family: '맑은 고딕', 'Noto Sans KR', sans-serif;
-            ">
-            """ + "<br><br>".join(numbered_verses) + """
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+st.markdown(f"""
+<div style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 25px auto 35px auto;
+    padding: 22px 30px;
+    background: linear-gradient(92deg, #f6faff 80%, #edf4fb 100%);
+    border: 2.5px solid #86b8ea;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(30,70,120,0.12);
+    max-width: 660px;
+    font-family: '맑은 고딕', 'Noto Sans KR', sans-serif;
+">
+    <!-- 이미지 -->
+    <div style="flex-shrink: 0;">
+        <img src="{image_url}" style="height: 100px;"/>
+    </div>
+
+    <!-- 등급 및 포인트 -->
+    <div style="text-align: left;">
+        <div style="font-size: 22px; font-weight: 900; color: #2c5282; margin-bottom: 4px;">
+            현재 등급: {level}
+        </div>
+        <div style="font-size: 17px; font-weight: 700; color: #28a745; margin-bottom: 6px;">
+            &lt; 포인트 {point} &gt;
+        </div>
+        <div style="font-size: 16px; font-weight: 500; color: #1a2a4f;">
+            {escaped_message}
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 
 
