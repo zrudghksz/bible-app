@@ -6,6 +6,13 @@ import pandas as pd
 import datetime
 import json
 import os
+import string  # ← 이 줄도 함께 추가 필요!
+
+
+
+# ✅ 텍스트 정리 함수: 공백 및 구두점 제거
+def clean_text(text):
+    return text.translate(str.maketrans("", "", string.punctuation)).replace(" ", "")
 
 
 # JSON 파일 경로 지정
@@ -52,8 +59,8 @@ with open("verses.txt", "r", encoding="utf-8") as f:
     verse_texts = [line.strip().split(" ", 1)[1] for line in f if line.strip() and len(line.strip().split(" ", 1)) > 1]
 
 def compare_texts(correct, user):
-    correct_clean = correct.replace(" ", "")
-    user_clean = user.replace(" ", "")
+    correct_clean = clean_text(correct)
+    user_clean = clean_text(user)
     ratio = difflib.SequenceMatcher(None, correct_clean, user_clean).ratio()
     return ratio >= 0.95
 
@@ -479,8 +486,8 @@ elif mode == "부분 암송 테스트":
 
     # ✅ 틀린 부분 빨간색 표시 함수
     def highlight_diff(correct, user):
-        correct_clean = correct.replace(" ", "")
-        user_clean = user.replace(" ", "")
+        correct_clean = clean_text(correct)
+        user_clean = clean_text(user)
         diff = difflib.ndiff(correct_clean, user_clean)
         result = ""
         for d in diff:
@@ -488,8 +495,6 @@ elif mode == "부분 암송 테스트":
                 result += d[-1]
             elif d.startswith("- "):
                 result += f"<span style='color:red'>{d[-1]}</span>"
-            elif d.startswith("+ "):
-                continue
         return result
 
     # ✅ 절 반복 (5절)
@@ -607,8 +612,8 @@ elif mode == "전체 암송 테스트":
 
     # ✅ 틀린 부분 하이라이트 함수
     def highlight_diff(correct, user):
-        correct_clean = correct.replace(" ", "")
-        user_clean = user.replace(" ", "")
+        correct_clean = clean_text(correct)
+        user_clean = clean_text(user)
         diff = difflib.ndiff(correct_clean, user_clean)
         result = ""
         for d in diff:
@@ -616,6 +621,8 @@ elif mode == "전체 암송 테스트":
                 result += d[-1]
             elif d.startswith("- "):
                 result += f"<span style='color:red'>{d[-1]}</span>"
+            elif d.startswith("+ "):
+                continue
         return result
 
     user_inputs = []
