@@ -295,7 +295,7 @@ if mode == "본문 보기":
 # ✅ 부분 듣기 ---
 elif mode == "부분 듣기":
     today = str(datetime.date.today())
-    
+
     # ✅ 상단 안내
     st.markdown(
         "<span style='color:#fff; font-size:1.13em; font-weight:900;'>🎧 부분 오디오 듣기</span>",
@@ -322,14 +322,9 @@ elif mode == "부분 듣기":
         # ✅ 오디오 자동 재생
         st.audio(path, format="audio/wav")
 
-        # ✅ 포인트 자동 지급 (최대 3점/일)
-        partial_key = f"{nickname}_partial_listened_{verse_num}_{today}"
-        partial_keys_today = [
-            k for k in st.session_state
-            if k.startswith(f"{nickname}_partial_listened_") and today in k
-        ]
-
-        if partial_key not in st.session_state and len(partial_keys_today) < 3:
+        # ✅ 포인트 자동 지급 (하루 1점만, 메시지 없음)
+        partial_key = f"{nickname}_partial_listened_{today}"
+        if partial_key not in st.session_state:
             st.session_state.user_points[nickname] += 1
             st.session_state[partial_key] = True
 
@@ -357,7 +352,6 @@ elif mode == "부분 듣기":
         )
     else:
         st.error("오디오 파일을 찾을 수 없습니다.")
-
 
 
 
