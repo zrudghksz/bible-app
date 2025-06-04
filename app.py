@@ -7,6 +7,23 @@ import datetime
 import json
 import os
 import string  # ← 이 줄도 함께 추가 필요!
+import requests
+
+HF_URL = "https://huggingface.co/datasets/zrudghksz/user-points/resolve/main/user_points.json"
+USER_POINT_FILE = "user_points.json"
+
+# 로컬에 없으면 Hugging Face에서 받아옴
+if not os.path.exists(USER_POINT_FILE):
+    try:
+        response = requests.get(HF_URL)
+        if response.status_code == 200:
+            with open(USER_POINT_FILE, "w", encoding="utf-8") as f:
+                f.write(response.text)
+    except Exception as e:
+        import streamlit as st
+        st.error("❌ Hugging Face에서 포인트 파일을 불러오지 못했습니다.")
+        st.stop()
+
 
 
 
@@ -18,12 +35,18 @@ def clean_text(text):
 # JSON 파일 경로 지정
 USER_POINT_FILE = "user_points.json"
 
-# 파일이 존재하면 불러오고, 없으면 초기화
-if os.path.exists(USER_POINT_FILE):
-    with open(USER_POINT_FILE, "r", encoding="utf-8") as f:
-        user_points = json.load(f)
-else:
+# 파일이 존재하면 불러오고, 문제가 생기면 빈 dict로 초기화
+try:
+    if os.path.exists(USER_POINT_FILE):
+        with open(USER_POINT_FILE, "r", encoding="utf-8") as f:
+            content = f.read().strip()
+            user_points = json.loads(content) if content else {}
+    else:
+        user_points = {}
+except Exception as e:
+    st.warning("⚠️ 포인트 파일을 불러오지 못했습니다. 빈 상태로 시작합니다.")
     user_points = {}
+
 
 # Streamlit 세션 상태에 로드
 if "user_points" not in st.session_state:
